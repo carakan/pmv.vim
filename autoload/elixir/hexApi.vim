@@ -1,46 +1,44 @@
 function! elixir#hexApi#getPackageInfo(package)
   echom 'Retrieving information from hex.pm ...'
-  let info = system('mix hex.info ' . shellescape(a:package))
+  let l:info = system('mix hex.info ' . shellescape(a:package))
   redraw!
 
-  if match(info, 'No package with name') != 0
-    return split(info, '\n')
+  if match(l:info, 'No package with name') != 0
+    return split(l:info, '\n')
   else
     call s:packageNotFound(a:package)
   endif
 endfunction
 
 function! elixir#hexApi#getAllReleases(package)
-  let json = elixir#hexApi#fetchPackage(a:package)
-  if has_key(json, 'releases')
-    let format_version = 'v:val.version . " (released on " . s:extractDate(v:val.inserted_at) . ")"'
-    return map(json.releases, format_version)
+  let l:json = elixir#hexApi#fetchPackage(a:package)
+  if has_key(l:json, 'releases')
+    let l:format_version = 'v:val.version . " (released on " . s:extractDate(v:val.inserted_at) . ")"'
+    return map(l:json.releases, l:format_version)
   endif
 endfunction
 
 function! elixir#hexApi#getLatestRelease(package)
-  let json = elixir#hexApi#fetchPackage(a:package)
-  if has_key(json, 'releases')
-    return json.releases[0].version
+  let l:json = elixir#hexApi#fetchPackage(a:package)
+  if has_key(l:json, 'releases')
+    return l:json.releases[0].version
   endif
 endfunction
 
 function! elixir#hexApi#fetchPackage(package)
   echom 'Retrieving information from hex.pm ...'
-
-  let uri = 'https://hex.pm/api/packages/' . a:package
-
-  let result = system(printf('curl -sS -L -i -X GET -H "Content-Cache: no-cache" "%s"', uri))
-  let pos = stridx(result, "\r\n\r\n")
-  let content = strpart(result, pos+4)
+  let l:uri = 'https://hex.pm/api/packages/' . a:package
+  let l:result = system(printf('curl -sS -L -i -X GET -H "Content-Cache: no-cache" "%s"', l:uri))
+  let l:pos = stridx(l:result, "\r\n\r\n")
+  let l:content = strpart(l:result, l:pos + 4)
 
   redraw!
-  return webapi#json#decode(content)
+  return webapi#json#decode(l:content)
 endfunction
 
 function! s:extractDate(str)
-  let date = matchstr(a:str, '[0-9-]\+')
-  return date
+  let l:date = matchstr(a:str, '[0-9-]\+')
+  return l:date
 endfunction
 
 function! s:packageNotFound(package)

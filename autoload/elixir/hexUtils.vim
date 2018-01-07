@@ -1,4 +1,3 @@
-
 function! elixir#hexUtils#render(input)
   silent keepalt belowright split markdown
   setlocal nosmartindent noautoindent noswapfile nobuflisted nospell nowrap modifiable
@@ -32,7 +31,6 @@ function! s:check_after_release(line, release)
 
   call setline('.', line)
 endfunction
-
 
 function! elixir#hexUtils#openHexDocs(package)
   let uri = 'https://hexdocs.pm/' . a:package
