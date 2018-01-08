@@ -1,4 +1,4 @@
-function! nodejs#hexUtils#render(input)
+function! nodejs#npmUtils#render(input)
   silent keepalt belowright split markdown
   setlocal nosmartindent noautoindent noswapfile nobuflisted nospell nowrap modifiable
   setlocal buftype=nofile bufhidden=hide
@@ -11,7 +11,7 @@ function! nodejs#hexUtils#render(input)
   nnoremap <silent> <buffer> q :bd<CR>
 endfunction
 
-function! nodejs#hexUtils#appendRelease(package, release)
+function! nodejs#npmUtils#appendRelease(package, release)
   let regex        = a:package . ',\?\s*}\?'
   let with_version = a:package . ', "\~> ' . a:release . '"'
   let new_line = substitute(getline('.'), regex, with_version, "")
@@ -32,13 +32,13 @@ function! s:check_after_release(line, release)
   call setline('.', line)
 endfunction
 
-function! nodejs#hexUtils#openHexDocs(package)
-  let uri = 'https://hexdocs.pm/' . a:package
+function! nodejs#npmUtils#opennpmDocs(package)
+  let uri = 'https://npmdocs.pm/' . a:package
   call s:openUri(uri)
 endfunction
 
-function! nodejs#hexUtils#openGithub(package)
-  let json = nodejs#hexApi#fetchPackage(a:package)
+function! nodejs#npmUtils#openGithub(package)
+  let json = nodejs#npmApi#fetchPackage(a:package)
 
   if has_key(json, 'meta')
     let links = json.meta.links
@@ -56,7 +56,7 @@ function! nodejs#hexUtils#openGithub(package)
   endif
 endfunction
 
-function! nodejs#hexUtils#getPackageName(qarg)
+function! nodejs#npmUtils#getPackageName(qarg)
   if empty(a:qarg)
     let package = s:scanForPackage()
     if s:packageNotFound(package)
