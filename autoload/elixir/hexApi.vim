@@ -13,8 +13,8 @@ endfunction
 function! elixir#hexApi#getAllReleases(package)
   let l:json = elixir#hexApi#fetchPackage(a:package)
   if has_key(l:json, 'releases')
-    let l:format_version = 'v:val.version . "\t url: " . v:val:url'
-    return join(map(l:json.releases, l:format_version), '\n')
+    let l:format_version = 'v:val.version . "\t url: " . v:val.url'
+    return map(l:json.releases, l:format_version)
   endif
 endfunction
 
