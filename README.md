@@ -1,4 +1,4 @@
-# hex.vim
+# pmv.vim Package Manager for (Neo)Vim 
 
 Inspired by [alexbel's vim-rubygems](https://github.com/alexbel/vim-rubygems), this vim plugin
 provides some nifty little functions to interact with your `mix.exs` file, and retrieve informations
