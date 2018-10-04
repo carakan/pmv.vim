@@ -17,9 +17,9 @@ function! s:pvm#GetNameSpaceFromFile(filename) abort
 endfunction
 
 function! pvm#Registry#GetFunction(filename, function_name) abort
-  return function(s:pvm#GetNameSpaceFromFile(a:filename) . '#' , a:function_name)
+  return call(s:pvm#GetNameSpaceFromFile(a:filename) . '#' , a:function_name)
 endfunction
 
 function! pvm#Registry#GetFunctionAndParam(filename, function_name, package_name) abort
-  return function(s:pvm#GetNameSpaceFromFile(a:filename) . '#' , a:function_name, a:package_name)
+  return call(s:pvm#GetNameSpaceFromFile(a:filename) . '#' , a:function_name, a:package_name)
 endfunction
