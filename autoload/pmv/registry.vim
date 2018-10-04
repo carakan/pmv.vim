@@ -16,10 +16,10 @@ function! s:pmv#GetNameSpaceFromFile(filename) abort
   return get(l:resolved_namespace(), 'namespace', {'function': ''})
 endfunction
 
-function! pvm#Registry#GetFunction(filename, function_name) abort
+function! pmv#Registry#GetFunction(filename, function_name) abort
   return call(s:pmv#GetNameSpaceFromFile(a:filename) . '#' , a:function_name)
 endfunction
 
-function! pvm#Registry#GetFunctionAndParam(filename, function_name, package_name) abort
+function! pmv#Registry#GetFunctionAndParam(filename, function_name, package_name) abort
   return call(s:pmv#GetNameSpaceFromFile(a:filename) . '#' , a:function_name, a:package_name)
 endfunction
