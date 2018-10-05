@@ -28,6 +28,5 @@ endfunction
 
 function! pmv#Registry#GetFunctionAndParam(filename, function_name, package_name) abort
   let l:function_name_cal = s:getNameSpaceFromFile(a:filename)
-  echom l:function_name_cal . '#' . a:function_name . ' - ' . a:package_name
   return call(l:function_name_cal . '#' . a:function_name, [a:package_name])
 endfunction

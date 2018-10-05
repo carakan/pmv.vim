@@ -30,9 +30,9 @@ function! pmv#elixir#hex#openDocs(package_name)
 endfunction
 
 function! pmv#elixir#hex#openGithub(package_name)
-  let l:package = elixir#hexUtils#getPackageName(a:package_name)
+  let l:package = pmv#elixir#hexUtils#getPackageName(a:package_name)
   if !empty(l:package)
-    call elixir#hexUtils#openGithub(l:package)
+    call pmv#elixir#hexUtils#openGithub(l:package)
   endif
 endfunction
 

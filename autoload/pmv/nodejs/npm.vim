@@ -8,10 +8,10 @@ function! nodejs#npm#appendRelease()
   end
 endfunction
 
-function! nodejs#npm#allReleases(package_name)
-  let l:package = nodejs#npmUtils#getPackageName(a:package_name)
+function! pmv#nodejs#npm#allReleases(package_name)
+  let l:package = pmv#nodejs#utils#getPackageName(a:package_name)
   if !empty(l:package)
-    let l:releases = nodejs#npmApi#getAllReleases(l:package)
+    let l:releases = pmv#nodejs#utils#getApiAllReleases(l:package)
     if !empty(l:releases)
       call nodejs#npmUtils#render(l:releases)
     endif
