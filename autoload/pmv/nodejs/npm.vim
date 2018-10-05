@@ -13,7 +13,7 @@ function! pmv#nodejs#npm#allReleases(package_name)
   if !empty(l:package)
     let l:releases = pmv#nodejs#utils#getApiAllReleases(l:package)
     if !empty(l:releases)
-      call nodejs#npmUtils#render(l:releases)
+      call pmv#utils#render(l:releases)
     endif
   end
 endfunction
@@ -25,6 +25,8 @@ function! g:nodejs#npm#packageInfo(package_name)
     if !empty(l:package_info)
       call pmv#utils#render(l:package_info)
     endif
+  else
+    echo 'Error on:' . a:package_name
   endif
 endfunction
 

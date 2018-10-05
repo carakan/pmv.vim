@@ -1,6 +1,19 @@
 function! pmv#nodejs#utils#getPackageName(qarg)
-  let l:strings = split(a:qarg, '"')
-  echom a:qarg
+  if empty(a:qarg)
+    let package = s:scanForPackage()
+    if s:packageNotFound(package)
+      return
+    endif
+
+    return package
+  endif
+
+  return a:qarg
+endfunction
+
+function! s:scanForPackage()
+  let l:line = getline('.')
+  let l:strings = split(l:line, '"')
   if len(l:strings) > 3
     let l:npm_name = tolower(l:strings[1])
     return l:npm_name
@@ -9,10 +22,20 @@ function! pmv#nodejs#utils#getPackageName(qarg)
   endif
 endfunction
 
+function! s:packageNotFound(package)
+  if empty(a:package)
+    redraw
+    echom 'No package found on this line!'
+    return 1
+  endif
+
+  return 0
+endfunction
+
 function! pmv#nodejs#utils#getApiAllReleases(package)
   let l:json = pmv#utils#fetchApiPackage('https://registry.npmjs.org/' . a:package)
   if has_key(l:json, 'versions')
     let l:format_version = 'v:val.version . "\t name: " . v:val.name'
-    return map(l:json.releases, l:format_version)
+    return map(l:json.versions, l:format_version)
   endif
 endfunction

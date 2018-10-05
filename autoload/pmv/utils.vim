@@ -1,5 +1,5 @@
 function! pmv#utils#fetchApiPackage(uri)
-  echom 'Retrieving information from server ...'
+  echom 'Retrieving information from: ' . a:uri
   let l:result = system(printf('curl -sS -L -i -X GET -H "Content-Cache: no-cache" "%s"', a:uri))
   let l:pos = stridx(l:result, "\r\n\r\n")
   let l:content = strpart(l:result, l:pos + 4)
