@@ -1,4 +1,4 @@
-function! elixir#hexApi#getPackageInfo(package)
+function! pmv#elixir#hexApi#getPackageInfo(package)
   echom 'Retrieving information from hex.pm ...'
   let l:info = system('mix hex.info ' . shellescape(a:package))
   redraw!
@@ -10,22 +10,22 @@ function! elixir#hexApi#getPackageInfo(package)
   endif
 endfunction
 
-function! elixir#hexApi#getAllReleases(package)
-  let l:json = elixir#hexApi#fetchPackage(a:package)
+function! pmv#elixir#hexApi#getAllReleases(package)
+  let l:json = pmv#elixir#hexApi#fetchPackage(a:package)
   if has_key(l:json, 'releases')
     let l:format_version = 'v:val.version . "\t url: " . v:val.url'
     return map(l:json.releases, l:format_version)
   endif
 endfunction
 
-function! elixir#hexApi#getLatestRelease(package)
-  let l:json = elixir#hexApi#fetchPackage(a:package)
+function! pmv#elixir#hexApi#getLatestRelease(package)
+  let l:json = pmv#elixir#hexApi#fetchPackage(a:package)
   if has_key(l:json, 'releases')
     return l:json.releases[0].version
   endif
 endfunction
 
-function! elixir#hexApi#fetchPackage(package)
+function! pmv#elixir#hexApi#fetchPackage(package)
   echom 'Retrieving information from hex.pm ...'
   let l:uri = 'https://hex.pm/api/packages/' . a:package
   let l:result = system(printf('curl -sS -L -i -X GET -H "Content-Cache: no-cache" "%s"', l:uri))

@@ -1,11 +1,11 @@
 let s:registry = {
 \ 'mix.exs': {
-\   'namespace': 'elixir#hex',
+\   'namespace': 'pmv#elixir#hex',
 \   'filename': 'Elixir',
 \   'description': 'package manager for elixir'
 \ },
 \ 'registry.vim': {
-\   'namespace': 'nodejs#npm',
+\   'namespace': 'pmv#nodejs#npm',
 \   'filename': 'package.json',
 \   'description': 'package manager for nodejs'
 \ },

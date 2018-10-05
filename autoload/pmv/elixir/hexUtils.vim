@@ -1,4 +1,4 @@
-function! elixir#hexUtils#render(input)
+function! pmv#elixir#hexUtils#render(input)
   silent keepalt belowright split markdown
   setlocal nosmartindent noautoindent noswapfile nobuflisted nospell nowrap modifiable
   setlocal buftype=nofile bufhidden=hide
@@ -11,7 +11,7 @@ function! elixir#hexUtils#render(input)
   nnoremap <silent> <buffer> q :bd<CR>
 endfunction
 
-function! elixir#hexUtils#appendRelease(package, release)
+function! pmv#elixir#hexUtils#appendRelease(package, release)
   let regex        = a:package . ',\?\s*}\?'
   let with_version = a:package . ', "\~> ' . a:release . '"'
   let new_line = substitute(getline('.'), regex, with_version, "")
@@ -32,12 +32,12 @@ function! s:check_after_release(line, release)
   call setline('.', line)
 endfunction
 
-function! elixir#hexUtils#openHexDocs(package)
+function! pmv#elixir#hexUtils#openHexDocs(package)
   let uri = 'https://hexdocs.pm/' . a:package
   call s:openUri(uri)
 endfunction
 
-function! elixir#hexUtils#openGithub(package)
+function! pmv#elixir#hexUtils#openGithub(package)
   let json = elixir#hexApi#fetchPackage(a:package)
 
   if has_key(json, 'meta')
@@ -56,7 +56,7 @@ function! elixir#hexUtils#openGithub(package)
   endif
 endfunction
 
-function! elixir#hexUtils#getPackageName(qarg)
+function! pmv#elixir#hexUtils#getPackageName(qarg)
   if empty(a:qarg)
     let package = s:scanForPackage()
     if s:packageNotFound(package)

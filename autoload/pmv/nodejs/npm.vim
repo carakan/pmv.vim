@@ -18,7 +18,7 @@ function! nodejs#npm#allReleases(package_name)
   end
 endfunction
 
-function! nodejs#npm#packageInfo(package_name)
+function! g:nodejs#npm#packageInfo(package_name)
   let l:package = nodejs#npmUtils#getPackageName(a:package_name)
   if !empty(l:package)
     let l:package_info = nodejs#npmApi#getPackageInfo(l:package)

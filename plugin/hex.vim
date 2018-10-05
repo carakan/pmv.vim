@@ -1,11 +1,11 @@
-command! -nargs=0 HexAppendRelease call elixir#hex#appendRelease()
+command! -nargs=0 PmvAppendRelease call elixir#hex#appendRelease()
 nnoremap <plug>(hex-append-release) :<c-u>HexAppendRelease<cr>
 
 command! -nargs=? HexAllReleases call elixir#hex#allReleases(<q-args>)
 nnoremap <plug>(hex-all-releases) :<c-u>HexAllReleases<cr>
 
 " Just an alias for :HexAllReleases
-command! -nargs=? HexAllVersions call elixir#hex#allReleases(<q-args>)
+command! -nargs=? PmvAllVersions call pmv#allReleases(<q-args>)
 nnoremap <plug>(hex-all-versions) :<c-u>HexAllVersions<cr>
 
 command! -nargs=? PmvPackageInfo call pmv#packageInfo(<q-args>)
