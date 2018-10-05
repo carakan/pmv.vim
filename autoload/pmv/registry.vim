@@ -1,25 +1,28 @@
 let s:registry = {
-\ 'mix.ex': {
+\ 'mix.exs': {
 \   'namespace': 'elixir#hex',
 \   'filename': 'Elixir',
 \   'description': 'package manager for elixir'
 \ },
-\ 'nodejs': {
-\   'namespace': 'pmv#nodejs',
+\ 'registry.vim': {
+\   'namespace': 'nodejs#npm',
 \   'filename': 'package.json',
 \   'description': 'package manager for nodejs'
 \ },
 \}
 
-function! s:pmv#GetNameSpaceFromFile(filename) abort
-  let l:resolved_namespace = get(s:registry, a:filename)
-  return get(l:resolved_namespace(), 'namespace', {'function': ''})
+function! s:getNameSpaceFromFile(filename) abort
+  let l:resolved_namespace = trim(s:registry[a:filename].namespace)
+  return l:resolved_namespace
 endfunction
 
 function! pmv#Registry#GetFunction(filename, function_name) abort
-  return call(s:pmv#GetNameSpaceFromFile(a:filename) . '#' , a:function_name)
+  let l:function_name = s:getNameSpaceFromFile(a:filename) . '#' . a:function_name
+  return call(l:function_name)
 endfunction
 
 function! pmv#Registry#GetFunctionAndParam(filename, function_name, package_name) abort
-  return call(s:pmv#GetNameSpaceFromFile(a:filename) . '#' , a:function_name, a:package_name)
+  let l:function_name_cal = s:getNameSpaceFromFile(a:filename)
+  echom l:function_name_cal . '#' . a:function_name . ' - ' . a:package_name
+  return call(l:function_name_cal . '#' . a:function_name, [a:package_name])
 endfunction
