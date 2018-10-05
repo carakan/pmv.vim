@@ -11,7 +11,7 @@ function! pmv#elixir#hexApi#getPackageInfo(package)
 endfunction
 
 function! pmv#elixir#hexApi#getAllReleases(package)
-  let l:json = pmv#elixir#hexApi#fetchPackage(a:package)
+  let l:json = pmv#utils#fetchApiPackage('https://hex.pm/api/packages/' . a:package)
   if has_key(l:json, 'releases')
     let l:format_version = 'v:val.version . "\t url: " . v:val.url'
     return map(l:json.releases, l:format_version)
@@ -19,21 +19,10 @@ function! pmv#elixir#hexApi#getAllReleases(package)
 endfunction
 
 function! pmv#elixir#hexApi#getLatestRelease(package)
-  let l:json = pmv#elixir#hexApi#fetchPackage(a:package)
+  let l:json = pmv#utils#fetchApiPackage('https://hex.pm/api/packages/' . a:package)
   if has_key(l:json, 'releases')
     return l:json.releases[0].version
   endif
-endfunction
-
-function! pmv#elixir#hexApi#fetchPackage(package)
-  echom 'Retrieving information from hex.pm ...'
-  let l:uri = 'https://hex.pm/api/packages/' . a:package
-  let l:result = system(printf('curl -sS -L -i -X GET -H "Content-Cache: no-cache" "%s"', l:uri))
-  let l:pos = stridx(l:result, "\r\n\r\n")
-  let l:content = strpart(l:result, l:pos + 4)
-
-  redraw!
-  return webapi#json#decode(l:content)
 endfunction
 
 function! s:extractDate(str)

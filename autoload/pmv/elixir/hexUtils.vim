@@ -1,16 +1,3 @@
-function! pmv#elixir#hexUtils#render(input)
-  silent keepalt belowright split markdown
-  setlocal nosmartindent noautoindent noswapfile nobuflisted nospell nowrap modifiable
-  setlocal buftype=nofile bufhidden=hide
-
-  normal! ggdG
-  call setline(1, a:input)
-
-  exec 'resize 10'
-  setlocal nomodifiable filetype=elixir
-  nnoremap <silent> <buffer> q :bd<CR>
-endfunction
-
 function! pmv#elixir#hexUtils#appendRelease(package, release)
   let regex        = a:package . ',\?\s*}\?'
   let with_version = a:package . ', "\~> ' . a:release . '"'
@@ -19,7 +6,6 @@ function! pmv#elixir#hexUtils#appendRelease(package, release)
   call s:check_after_release(new_line, a:release)
   normal! $
 endfunction
-
 
 function! s:check_after_release(line, release)
   let after_version = matchstr(a:line, a:release . '"\zs.')
@@ -38,7 +24,7 @@ function! pmv#elixir#hexUtils#openHexDocs(package)
 endfunction
 
 function! pmv#elixir#hexUtils#openGithub(package)
-  let json = elixir#hexApi#fetchPackage(a:package)
+  let json = pmv#utils#fetchApiPackage('https://hex.pm/api/packages/' . a:package)
 
   if has_key(json, 'meta')
     let links = json.meta.links

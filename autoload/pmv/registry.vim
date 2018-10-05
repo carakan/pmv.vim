@@ -1,17 +1,17 @@
 let s:registry = {
 \ 'Gemfile': {
 \   'namespace': 'pmv#ruby#rubygems',
-\   'filename': 'Ruby',
+\   'languaje': 'Ruby',
 \   'description': 'package manager for Ruby'
 \ },
 \ 'mix.exs': {
 \   'namespace': 'pmv#elixir#hex',
-\   'filename': 'Elixir',
+\   'languaje': 'Elixir',
 \   'description': 'package manager for elixir'
 \ },
-\ 'registry.vim': {
+\ 'package.json': {
 \   'namespace': 'pmv#nodejs#npm',
-\   'filename': 'package.json',
+\   'languaje': 'NodeJS',
 \   'description': 'package manager for nodejs'
 \ },
 \}
@@ -23,7 +23,7 @@ endfunction
 
 function! pmv#Registry#GetFunction(filename, function_name) abort
   let l:function_name = s:getNameSpaceFromFile(a:filename) . '#' . a:function_name
-  return call(l:function_name)
+  return call(l:function_name, [])
 endfunction
 
 function! pmv#Registry#GetFunctionAndParam(filename, function_name, package_name) abort

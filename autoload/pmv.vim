@@ -3,12 +3,12 @@ function! pmv#allReleases(package_name)
   call pmv#Registry#GetFunctionAndParam(l:file_name, 'allReleases', a:package_name)
 endfunction
 
-function! pmv#appendRelease(package_name)
+function! pmv#appendRelease()
   let l:file_name = expand('%:t')
   call pmv#Registry#GetFunction(l:file_name, 'appendRelease')
 endfunction
 
-function! pmv#lastRelease(package_name)
+function! pmv#lastRelease()
   let l:file_name = expand('%:t')
   call pmv#Registry#GetFunction(l:file_name, 'lastRelease')
 endfunction

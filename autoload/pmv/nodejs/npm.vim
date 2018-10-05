@@ -23,7 +23,7 @@ function! g:nodejs#npm#packageInfo(package_name)
   if !empty(l:package)
     let l:package_info = nodejs#npmApi#getPackageInfo(l:package)
     if !empty(l:package_info)
-      call nodejs#npmUtils#render(l:package_info)
+      call pmv#utils#render(l:package_info)
     endif
   endif
 endfunction
