@@ -1,10 +1,12 @@
 command! -nargs=0 PmvAppendRelease call pmv#appendRelease()
 nnoremap <plug>(pmv-append-release) :<c-u>PmvAppendRelease<cr>
 
+command! -nargs=0 PmvLastRelease call pmv#lastRelease()
+nnoremap <plug>(pmv-last-release) :<c-u>PmvLastRelease<cr>
+
 command! -nargs=? PmvAllReleases call pmv#allReleases(<q-args>)
 nnoremap <plug>(pmv-all-releases) :<c-u>PmvAllReleases<cr>
 
-" Just an alias for :HexAllReleases
 command! -nargs=? PmvAllVersions call pmv#allReleases(<q-args>)
 nnoremap <plug>(pmv-all-versions) :<c-u>PmvAllVersions<cr>
 

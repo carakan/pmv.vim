@@ -1,4 +1,9 @@
 let s:registry = {
+\ 'Gemfile': {
+\   'namespace': 'pmv#ruby#rubygems',
+\   'filename': 'Ruby',
+\   'description': 'package manager for Ruby'
+\ },
 \ 'mix.exs': {
 \   'namespace': 'pmv#elixir#hex',
 \   'filename': 'Elixir',

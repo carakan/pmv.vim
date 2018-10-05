@@ -7,10 +7,16 @@ if globpath(&rtp, 'autoload/webapi/http.vim') == ''
   finish
 endif
 
-"
-" Public
-"
-function! rubygems#Recent()
+function! pmv#ruby#rubygems#allReleases()
+  let gem_name = s:gem_name_from_current_line()
+  if empty(gem_name)
+    return
+  endif
+  let gem_info = s:load_versions(gem_name)
+  call s:show_versions(gem_info)
+endfunction
+
+function! pmv#ruby#rubygems#lastRelease()
   let gem_name = s:gem_name_from_current_line()
   if empty(gem_name)
     return
@@ -18,15 +24,6 @@ function! rubygems#Recent()
   let gem_info = s:load_gem_info(gem_name)
   let output = 'Last version = '.gem_info.version
   echo output
-endfunction
-
-function! rubygems#Versions()
-  let gem_name = s:gem_name_from_current_line()
-  if empty(gem_name)
-    return
-  endif
-  let gem_info = s:load_versions(gem_name)
-  call s:show_versions(gem_info)
 endfunction
 
 function! rubygems#Info()
@@ -45,7 +42,7 @@ function! rubygems#Info()
   call s:render(str)
 endfunction
 
-function! rubygems#AppendVersion()
+function! pmv#ruby#rubygems#appendRelease()
   let gem_name = s:gem_name_from_current_line()
   if empty(gem_name)
     return
