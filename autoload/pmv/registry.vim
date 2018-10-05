@@ -12,7 +12,7 @@ let s:registry = {
 \}
 
 function! s:getNameSpaceFromFile(filename) abort
-  let l:resolved_namespace = trim(s:registry[a:filename].namespace)
+  let l:resolved_namespace = s:registry[a:filename].namespace
   return l:resolved_namespace
 endfunction
 
