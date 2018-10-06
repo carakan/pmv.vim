@@ -18,16 +18,16 @@ function! pmv#ruby#rubygems#allReleases(package_name)
 endfunction
 
 function! pmv#ruby#rubygems#lastRelease()
-  let gem_name = s:gem_name_from_current_line()
-  if empty(gem_name)
+  let l:gem_name = s:gem_name_from_current_line()
+  if empty(l:gem_name)
     return
   endif
-  let gem_info = s:load_gem_info(gem_name)
-  let output = 'Last version = '.gem_info.version
-  echo output
+  let l:gem_info = s:load_gem_info(l:gem_name)
+  let l:output = 'Last version of: ' . l:gem_name . ' : ' . l:gem_info.version
+  echo l:output
 endfunction
 
-function! rubygems#Info()
+function! pvm#ruby#rubygems#packageInfo(package_name)
   let gem_name = s:gem_name_from_current_line()
   if empty(gem_name)
     return
@@ -109,17 +109,6 @@ function! rubygems#BundleAudit()
     call pmv#utils#render(result)
     exec 'resize 7'
   endif
-endfunction
-
-"
-" Private
-"
-function! s:show_versions(info)
-  let str = ''
-  for v in a:info
-    let str = str . v.number . ' built at ' . s:extract_date(v.built_at) . "\<cr>"
-  endfor
-  call pmv#utils#render(str)
 endfunction
 
 function! s:gem_name_from_current_line()

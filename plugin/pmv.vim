@@ -7,9 +7,6 @@ nnoremap <plug>(pmv-last-release) :<c-u>PmvLastRelease<cr>
 command! -nargs=? PmvAllReleases call pmv#allReleases(<q-args>)
 nnoremap <plug>(pmv-all-releases) :<c-u>PmvAllReleases<cr>
 
-command! -nargs=? PmvAllVersions call pmv#allReleases(<q-args>)
-nnoremap <plug>(pmv-all-versions) :<c-u>PmvAllVersions<cr>
-
 command! -nargs=? PmvPackageInfo call pmv#packageInfo(<q-args>)
 nnoremap <plug>(pmv-package-info) :<c-u>PmvPackageInfo<cr>
 

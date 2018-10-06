@@ -1,14 +1,14 @@
-# pmv.vim Package Manager for (Neo)Vim 
+# pmv.vim Package Manager Versioning for Vim
 
-this vim plugin provides some nifty little functions to interact with your package
-manager for all languages, it's generic!
+this vim plugin provides some functions to interact with your package
+manager and programming language, it's generic!
 
 ### Prerequisites
 
-This plugin uses [mattn/webapi-vim](https://github.com/mattn/webapi-vim) for making calls to the 
-hex.pm API, so please make sure to have that cloned or in your list of plugins. 👌🏼
+This plugin uses [mattn/webapi-vim](https://github.com/mattn/webapi-vim).
 
 ## Installation
+
 **Installation with Vundle**
 You can install this plugin using Vundle by using the path on GitHub for this repository.
 
@@ -23,12 +23,15 @@ Automatically Pmv knows wich function needs to calculate functions for each pack
 with this functions:
 
 ### `PmvAppendRelease`
-Leave your cursor on a line with a package name, (like `{:ecto ` or even
+
+Leave your cursor on a line with a package name, (like `{:ecto` or even
 `{:credo, only: [:dev, :test]}]`) and let the magic happen.
 
 ### `PmvAllReleases [package]`
+
 Leave your cursor on a line with a package name, or pass a name as only
 argument to get all the releases for given package in a little pane.
+
 ```
 :PmvAllReleases
     or
@@ -42,11 +45,14 @@ argument to get all the releases for given package in a little pane.
 ```
 
 ### `PmvAllVersions [package]`
+
 Just an alias for `PmvAllReleases` ☝🏼
 
 ### `PmvPackageInfo [package]`
+
 Leave your cursor on a line with a package name, or pass a name as only
 argument to get info on the given package.
+
 ```
 :PmvPackageInfo
     or
@@ -56,21 +62,30 @@ argument to get info on the given package.
 ```
 
 ### `PmvOpenDocs [package]`
+
 Open the hexdocs page for the given package (or in the line under the cursor)
-in the system-default browser.  This doesn't check if hexdocs are published for
+in the system-default browser. This doesn't check if hexdocs are published for
 a package, so you might get some 404's here and there.
 
 Note: this uses `open` on OSX and `xdg-open` on Linux systems.
 
 ### `PmvOpenRepoPage [package]`
+
 Open the github repo for the given package (or in the line under the cursor) in
 the system-default browser.
 
 Note: this uses `open` on OSX and `xdg-open` on Linux systems.
 
 # TODO's
-- Support all possible languajes and package manager. 
-  - [x] Elixir
-  - [x] NodeJS
-  - [x] Ruby
+
+- Support languajes and package managers
+  - [x] Elixir, hex
+  - [x] NodeJS, npm/yarn
+  - [x] Ruby, rubygems
 - Refactor's
+- Async API calls
+
+# Inspiration
+
+- [vim-rubygems](https://github.com/alexbel/vim-rubygems)
+- [ hex.vim ](https://github.com/lucidstack/hex.vim)

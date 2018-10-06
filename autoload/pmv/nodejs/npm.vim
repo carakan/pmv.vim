@@ -28,8 +28,8 @@ function! pmv#nodejs#npm#lastRelease() abort
   end
 endfunction
 
-function! g:nodejs#npm#packageInfo(package_name)
-  let l:package = nodejs#npmUtils#getPackageName(a:package_name)
+function! pmv#nodejs#npm#packageInfo(package_name)
+  let l:package = pvm#nodejs#utils#getPackageName(a:package_name)
   if !empty(l:package)
     let l:package_info = nodejs#npmApi#getPackageInfo(l:package)
     if !empty(l:package_info)
@@ -40,7 +40,7 @@ function! g:nodejs#npm#packageInfo(package_name)
   endif
 endfunction
 
-function! nodejs#npm#opennpmDocs(package_name)
+function! pmv#nodejs#npm#opennpmDocs(package_name)
   let l:package = nodejs#npmUtils#getPackageName(a:package_name)
   if !empty(l:package)
     call nodejs#npmUtils#opennpmDocs(l:package)
