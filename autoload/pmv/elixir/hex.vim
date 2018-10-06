@@ -19,7 +19,13 @@ function! pmv#elixir#hex#appendRelease()
 endfunction
 
 function! pmv#elixir#hex#lastRelease() abort
-  echo 'TODO'
+  let l:package = pmv#elixir#hexUtils#getPackageName('')
+  if !empty(l:package)
+    let l:releases = pmv#elixir#hexApi#getAllReleases(l:package)
+    if !empty(l:releases)
+      echo l:releases[0]
+    endif
+  end
 endfunction
 
 function! pmv#elixir#hex#openDocs(package_name)

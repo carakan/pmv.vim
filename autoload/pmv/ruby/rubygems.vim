@@ -8,12 +8,13 @@ if globpath(&rtp, 'autoload/webapi/http.vim') == ''
 endif
 
 function! pmv#ruby#rubygems#allReleases(package_name)
-  let gem_name = s:gem_name_from_current_line()
-  if empty(gem_name)
+  let l:gem_name = s:gem_name_from_current_line()
+  if empty(l:gem_name)
     return
   endif
-  let gem_info = s:load_versions(gem_name)
-  call s:show_versions(gem_info)
+  let l:gem_info = s:load_versions(l:gem_name)
+  let l:format_version = 'v:val.number . "\t built at: " . v:val.built_at'
+  call pmv#utils#render(map(l:gem_info, l:format_version))
 endfunction
 
 function! pmv#ruby#rubygems#lastRelease()
