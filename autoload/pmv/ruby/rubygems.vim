@@ -112,9 +112,8 @@ function! rubygems#BundleAudit()
 endfunction
 
 function! s:gem_name_from_current_line()
-  let line = getline('.')
-  let gem_name = s:extract_gem_name(line)
-  return gem_name
+  let l:gemName = s:extract_gem_name(getline('.'))
+  return l:gemName
 endfunction
 
 function! s:is_gem_definition(str_arr)

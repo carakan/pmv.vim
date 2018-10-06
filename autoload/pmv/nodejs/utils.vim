@@ -39,3 +39,8 @@ function! pmv#nodejs#utils#getApiAllReleases(package)
     return reverse(sort(values(map(l:json.versions, l:format_version))))
   endif
 endfunction
+
+function! pmv#nodejs#utils#getApiLatestRelease(package)
+  let l:json = pmv#utils#fetchApiPackage('https://registry.npmjs.org/' . a:package)
+  return l:json['dist-tags'].latest
+endfunction
