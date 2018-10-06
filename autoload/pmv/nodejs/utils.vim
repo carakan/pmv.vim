@@ -36,6 +36,6 @@ function! pmv#nodejs#utils#getApiAllReleases(package)
   let l:json = pmv#utils#fetchApiPackage('https://registry.npmjs.org/' . a:package)
   if has_key(l:json, 'versions')
     let l:format_version = 'v:val.version . "\t name: " . v:val.name'
-    return reverse(values(map(l:json.versions, l:format_version)))
+    return reverse(sort(values(map(l:json.versions, l:format_version))))
   endif
 endfunction

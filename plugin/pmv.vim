@@ -18,3 +18,19 @@ nnoremap <plug>(pmv-open-docs) :<c-u>PmvOpenDocs<cr>
 
 command! -nargs=? PmvOpenRepoPage call pmv#openRepoPage(<q-args>)
 nnoremap <plug>(pmv-open-repo-page) :<c-u>PmvOpenRepoPage<cr>
+
+function! s:register_mapping(command, shortcut, has_count)
+  if a:has_count
+    execute 'nnoremap <silent> <Plug>'. a:command . ' :<C-u>'. a:command . ' v:count<CR>'
+  else
+    execute 'nnoremap <silent> <Plug>' . a:command . ' :' . a:command . '<CR>'
+  endif
+  if !hasmapto('<Plug>' . a:command)
+        \ && !get(g:, 'pmv_no_default_key_mappings', 0)
+        \ && maparg(a:shortcut, 'n') ==# ''
+    execute 'nmap ' . a:shortcut . ' <Plug>' . a:command
+  endif
+endfunction
+
+call s:register_mapping('PmvLastRelease','pm',  0)
+call s:register_mapping('PmvAllReleases','pa',  0)

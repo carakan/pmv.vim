@@ -23,7 +23,7 @@ function! pmv#elixir#hex#lastRelease() abort
   if !empty(l:package)
     let l:releases = pmv#elixir#hexApi#getAllReleases(l:package)
     if !empty(l:releases)
-      echo l:releases[0]
+      echo 'Last version of ' . l:package . ' : ' . l:releases[0]
     endif
   end
 endfunction

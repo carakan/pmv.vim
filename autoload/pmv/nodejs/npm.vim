@@ -18,6 +18,16 @@ function! pmv#nodejs#npm#allReleases(package_name)
   end
 endfunction
 
+function! pmv#nodejs#npm#lastRelease() abort
+  let l:package = pmv#nodejs#utils#getPackageName('')
+  if !empty(l:package)
+    let l:releases = pmv#nodejs#utils#getApiAllReleases(l:package)
+    if !empty(l:releases)
+      echo 'Last version of ' . l:package . ' : ' . l:releases[0]
+    endif
+  end
+endfunction
+
 function! g:nodejs#npm#packageInfo(package_name)
   let l:package = nodejs#npmUtils#getPackageName(a:package_name)
   if !empty(l:package)
