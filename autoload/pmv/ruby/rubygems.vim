@@ -1,18 +1,9 @@
-if exists('g:rubygems_disabled') && g:rubygems_disabled == 1
-  finish
-endif
-
-if globpath(&rtp, 'autoload/webapi/http.vim') == ''
-  echohl ErrorMsg | echomsg "Rubygems: require 'webapi', install https://github.com/mattn/webapi-vim" | echohl None
-  finish
-endif
-
 function! pmv#ruby#rubygems#allReleases(package_name)
   let l:gem_name = s:gem_name_from_current_line()
   if empty(l:gem_name)
     return
   endif
-  let l:gem_info = s:load_versions(l:gem_name)
+  let l:gem_info = pmv#ruby#utils#getApiPackageVersions(l:gem_name)
   let l:format_version = 'v:val.number . "\t built at: " . v:val.built_at'
   call pmv#utils#render(map(l:gem_info, l:format_version))
 endfunction
@@ -22,7 +13,7 @@ function! pmv#ruby#rubygems#lastRelease()
   if empty(l:gem_name)
     return
   endif
-  let l:gem_info = s:load_gem_info(l:gem_name)
+  let l:gem_info = pmv#ruby#utils#getApiPackage(l:gem_name)
   let l:output = 'Last version of: ' . l:gem_name . ' : ' . l:gem_info.version
   echo l:output
 endfunction
@@ -32,7 +23,7 @@ function! pvm#ruby#rubygems#packageInfo(package_name)
   if empty(gem_name)
     return
   endif
-  let gem_info = s:load_gem_info(gem_name)
+  let gem_info = pmv#ruby#utils#getApiPackage(gem_name)
 
   let str = 'Last version: ' . gem_info.version . "\<cr>"
   let str = str . 'Authors: ' . gem_info.authors . "\<cr>"
@@ -48,10 +39,24 @@ function! pmv#ruby#rubygems#appendRelease()
   if empty(gem_name)
     return
   endif
-  let gem_info = s:load_gem_info(gem_name)
+  let gem_info = pmv#ruby#utils#getApiPackage(gem_name)
   let gem_version = gem_info.version
   call s:remove_current_version()
   execute "normal! A, '~> ".gem_version."'"
+endfunction
+
+function! pmv#ruby#rubygems#openDocs(package_name)
+  let l:gemName = s:gem_name_from_current_line()
+  if !empty(l:gemName)
+    call pmv#ruby#utils#openPage(l:gemName, 'documentation_uri')
+  endif
+endfunction
+
+function! pmv#ruby#rubygems#openGithub(package_name)
+  let l:gemName = s:gem_name_from_current_line()
+  if !empty(l:gemName)
+    call pmv#ruby#utils#openPage(l:gemName, 'homepage_uri')
+  endif
 endfunction
 
 function! rubygems#Search(query)
@@ -85,7 +90,7 @@ function! rubygems#GemfileCheck()
     endif
 
     call s:hi_line(index, 'rubygem_checking')
-    let gem_info = s:load_gem_info(gem_name)
+    let gem_info = pmv#ruby#utils#getApiPackage(gem_name)
     if s:compare_versions(current_gem_version, gem_info.version)
       call s:hi_line(index, 'rubygem_warning',)
     else
@@ -151,26 +156,6 @@ function! s:extract_date(str)
   let date = matchstr(a:str, '[0-9-]\+')
   return date
 endfunction
-
-function! s:load_gem_info(gem_name)
-  let uri = 'https://rubygems.org/api/v1/gems/'.a:gem_name.'.json'
-  let content = pmv#utils#fetchApiPackage(uri)
-  return content
-endfunction
-
-function! s:load_versions(gem_name)
-  let uri = 'https://rubygems.org/api/v1/versions/' .a:gem_name. '.json'
-  let content = pmv#utils#fetchApiPackage(uri)
-  return content
-endfunction
-
-" function! s:request(uri)
-"   echomsg 'Requesting rubygems.com to look up information ...'
-"   let result = webapi#http#get(a:uri)
-"   let content = webapi#json#decode(result.content)
-"   redraw!
-"   return content
-" endfunction
 
 function! s:strip(input_str)
   let output_str = substitute(a:input_str, '^\s*\(.\{-}\)\s*$', '\1', '')
