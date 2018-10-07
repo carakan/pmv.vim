@@ -13,27 +13,24 @@ function! s:check_after_release(line, release)
   else
     let line = substitute(a:line, a:release . '"', a:release . '", ', "")
   endif
-
   call setline('.', line)
 endfunction
 
 function! pmv#elixir#hexUtils#openHexDocs(package)
-  let uri = 'https://hexdocs.pm/' . a:package
-  call s:openUri(uri)
+  let l:uri = 'https://hexdocs.pm/' . a:package
+  call pmv#utils#openUri(l:uri)
 endfunction
 
 function! pmv#elixir#hexUtils#openGithub(package)
   let json = pmv#utils#fetchApiPackage('https://hex.pm/api/packages/' . a:package)
-
   if has_key(json, 'meta')
     let links = json.meta.links
-
     if has_key(links, 'GitHub')
-      call s:openUri(links.GitHub)
+      call pmv#utils#openUri(links.GitHub)
     elseif has_key(links, 'github')
-      call s:openUri(links.github)
+      call pmv#utils#openUri(links.github)
     elseif has_key(links, 'Github')
-      call s:openUri(links.Github)
+      call pmv#utils#openUri(links.Github)
     else
       redraw
       echo 'No Github link found for ' . a:package . '!'
@@ -43,20 +40,18 @@ endfunction
 
 function! pmv#elixir#hexUtils#getPackageName(qarg)
   if empty(a:qarg)
-    let package = s:scanForPackage()
-    if s:packageNotFound(package)
+    let l:package = s:scanForPackage()
+    if s:packageNotFound(l:package)
       return
     endif
-
-    return package
+    return l:package
   endif
-
   return a:qarg
 endfunction
 
 function! s:scanForPackage()
-  let line = getline('.')
-  return matchstr(line, '{:\zs[a-z]\w*\ze')
+  let l:line = getline('.')
+  return matchstr(l:line, '{:\zs[a-z]\w*\ze')
 endfunction
 
 function! s:packageNotFound(package)
@@ -67,15 +62,4 @@ function! s:packageNotFound(package)
   endif
 
   return 0
-endfunction
-
-let s:is_unix = has('unix')
-let s:is_macunix = (has('mac') || has('macunix') || has('gui_macvim') || (!executable('xdg-open') && system('uname') =~? '^darwin'))
-
-function! s:openUri(uri)
-  if s:is_macunix
-    call system('open ' . shellescape(a:uri))
-  elseif s:is_unix
-    system('xdg-open ' . shellescape(a:uri))
-  endif
 endfunction

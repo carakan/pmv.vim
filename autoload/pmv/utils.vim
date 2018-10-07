@@ -20,3 +20,15 @@ function! pmv#utils#render(input)
   setlocal nomodifiable filetype=versioning
   nnoremap <silent> <buffer> q :bd<CR>
 endfunction
+
+function! pmv#utils#openUri(uri)
+  if s:is_macunix
+    call system('open ' . shellescape(a:uri))
+  elseif s:is_unix
+    system('xdg-open ' . shellescape(a:uri))
+  endif
+endfunction
+
+let s:is_unix = has('unix')
+let s:is_macunix = (has('mac') || has('macunix') || has('gui_macvim') || (!executable('xdg-open') && system('uname') =~? '^darwin'))
+

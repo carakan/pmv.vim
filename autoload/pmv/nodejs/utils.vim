@@ -4,10 +4,8 @@ function! pmv#nodejs#utils#getPackageName(qarg)
     if s:packageNotFound(l:package)
       return
     endif
-
     return l:package
   endif
-
   return a:qarg
 endfunction
 
@@ -28,19 +26,28 @@ function! s:packageNotFound(package)
     echom 'No package found on this line!'
     return 1
   endif
-
   return 0
 endfunction
 
 function! pmv#nodejs#utils#getApiAllReleases(package)
-  let l:json = pmv#utils#fetchApiPackage('https://registry.npmjs.org/' . a:package)
+  let l:json = pmv#nodejs#utils#getApiPackage(a:package)
   if has_key(l:json, 'versions')
     let l:format_version = 'v:val.version . "\t name: " . v:val.name'
     return reverse(sort(values(map(l:json.versions, l:format_version))))
   endif
 endfunction
 
-function! pmv#nodejs#utils#getApiLatestRelease(package)
+function! pmv#nodejs#utils#openRepoPage(package)
+  let l:json = pmv#nodejs#utils#getApiPackage(a:package)
+  if has_key(l:json, 'homepage')
+    call pmv#utils#openUri(l:json.homepage)
+  else
+    redraw
+    echo 'No Github link found for ' . a:package . '!'
+  endif
+endfunction
+
+function! pmv#nodejs#utils#getApiPackage(package)
   let l:json = pmv#utils#fetchApiPackage('https://registry.npmjs.org/' . a:package)
-  return l:json['dist-tags'].latest
+  return l:json
 endfunction
