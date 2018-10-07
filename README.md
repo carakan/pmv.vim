@@ -22,10 +22,9 @@ Plugin 'carakan/pmv.vim'
 Automatically Pmv knows wich function needs to calculate functions for each package manager
 with this functions:
 
-### `PmvAppendRelease`
+### `PmvLatestRelease [package]`
 
-Leave your cursor on a line with a package name, (like `{:ecto` or even
-`{:credo, only: [:dev, :test]}]`) and let the magic happen.
+Show the latest version of the package
 
 ### `PmvAllReleases [package]`
 
@@ -44,9 +43,10 @@ argument to get all the releases for given package in a little pane.
 0.1.0 (released on 2014-11-18)
 ```
 
-### `PmvAllVersions [package]`
+### `PmvAppendRelease`
 
-Just an alias for `PmvAllReleases` ☝🏼
+Leave your cursor on a line with a package name, (like `{:ecto` or even
+`{:credo, only: [:dev, :test]}]`) and let the magic happen.
 
 ### `PmvPackageInfo [package]`
 

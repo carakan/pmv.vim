@@ -29,5 +29,9 @@ function! s:register_mapping(command, shortcut, has_count)
   endif
 endfunction
 
-call s:register_mapping('PmvLastRelease','pm',  0)
-call s:register_mapping('PmvAllReleases','pa',  0)
+call s:register_mapping('PmvLastRelease','<Leader>pm', 0)
+call s:register_mapping('PmvAllReleases','<Leader>pa', 0)
+call s:register_mapping('PmvAppendRelease','<Leader>pp', 0)
+call s:register_mapping('PmvPackageInfo','<Leader>pi', 0)
+call s:register_mapping('PmvOpenRepoPage','<Leader>po', 0)
+call s:register_mapping('PmvOpenDocs','<Leader>pd', 0)
