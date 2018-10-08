@@ -1,7 +1,7 @@
-# pmv.vim Package Manager Versioning for Vim
+# pmv.vim Package Manager for Vim
 
-this vim plugin provides some functions to interact with your package
-manager and programming language, it's generic!
+Vim plugin that provides functions to interact with your package/lib manager for your
+favorite language and it's generic!
 
 ### Prerequisites
 
@@ -82,10 +82,11 @@ Note: this uses `open` on OSX and `xdg-open` on Linux systems.
   - [x] Elixir, hex
   - [x] NodeJS, npm/yarn
   - [x] Ruby, rubygems
-- Refactor's
+- Refactor
 - Async API calls
+- Test's
 
 # Inspiration
 
 - [vim-rubygems](https://github.com/alexbel/vim-rubygems)
-- [ hex.vim ](https://github.com/lucidstack/hex.vim)
+- [hex.vim](https://github.com/lucidstack/hex.vim)

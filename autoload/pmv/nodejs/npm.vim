@@ -9,14 +9,14 @@ function! pmv#nodejs#npm#allReleases(package_name)
   end
 endfunction
 
-function! pvm#nodejs#npm#appendRelease()
+function! pmv#nodejs#npm#appendRelease()
   echo 'Not implemented'
 endfunction
 
 function! pmv#nodejs#npm#lastRelease() abort
   let l:package = pmv#nodejs#utils#getPackageName('')
   if !empty(l:package)
-    let l:jsonApi = pmv#nodejs#utils#getApiLatestRelease(l:package)
+    let l:jsonApi = pmv#nodejs#utils#getApiPackage(l:package)
     echo 'Last version of ' . l:package . ' : ' . l:jsonApi['dist-tags'].latest
   end
 endfunction
