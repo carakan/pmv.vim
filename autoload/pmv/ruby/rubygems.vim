@@ -18,7 +18,7 @@ function! pmv#ruby#rubygems#lastRelease()
   echo l:output
 endfunction
 
-function! pvm#ruby#rubygems#packageInfo(package_name)
+function! pmv#ruby#rubygems#packageInfo(package_name)
   let gem_name = s:gem_name_from_current_line()
   if empty(gem_name)
     return

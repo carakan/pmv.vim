@@ -76,6 +76,20 @@ the system-default browser.
 
 Note: this uses `open` on OSX and `xdg-open` on Linux systems.
 
+### Mappings
+
+By default is:
+
+| Mappings   | Command |
+--------------------------------
+| <leader>pm | :PmvLastRelease |
+| <leader>pa | :PmvAllReleases |
+| <leader>pp | :PmvAppendRelease |
+| <leader>pi | :PmvPackageInfo |
+| <leader>po | :PmvOpenRepoPage |
+| <leader>pd | :PmvOpenDocs |
+
+
 # TODO's
 
 - Support languajes and package managers

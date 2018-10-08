@@ -10,7 +10,7 @@ function! pmv#nodejs#npm#allReleases(package_name)
 endfunction
 
 function! pmv#nodejs#npm#appendRelease()
-  echo 'Not implemented'
+  echo 'Not implemented yet!'
 endfunction
 
 function! pmv#nodejs#npm#lastRelease() abort
@@ -33,13 +33,5 @@ function! pmv#nodejs#npm#openGithub(package_name)
 endfunction
 
 function! pmv#nodejs#npm#packageInfo(package_name)
-  let l:package = pvm#nodejs#utils#getPackageName(a:package_name)
-  if !empty(l:package)
-    let l:package_info = nodejs#npmApi#getPackageInfo(l:package)
-    if !empty(l:package_info)
-      call pmv#utils#render(l:package_info)
-    endif
-  else
-    echo 'Error on:' . a:package_name
-  endif
+  echo 'Not implemented yet!'
 endfunction
