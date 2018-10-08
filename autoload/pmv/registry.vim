@@ -17,16 +17,15 @@ let s:registry = {
 \}
 
 function s:listAllSupportedLanguages() abort
-  return join(values(map(s:registry, 'v:val,language')), ', ')
+  return join(values(map(s:registry, 'v:val.language')), ', ')
 endfunction
 
 function! s:getNameSpaceFromFile(filename) abort
   if has_key(s:registry, a:filename)
-    let l:resolved_namespace = s:registry[a:filename].namespace
-    return l:resolved_namespace
+    return s:registry[a:filename].namespace
   else
     echo 'Not supported language/file, currently supported: ' . s:listAllSupportedLanguages()
-    return 'return'
+    return 'pmv#error'
   endif
 endfunction
 
