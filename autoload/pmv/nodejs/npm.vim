@@ -26,7 +26,7 @@ function! pmv#nodejs#npm#openDocs(package_name)
 endfunction
 
 function! pmv#nodejs#npm#openGithub(package_name)
-  let l:package = nodejs#npmUtils#getPackageName(a:package_name)
+  let l:package = pmv#nodejs#utils#getPackageName(a:package_name)
   if !empty(l:package)
     call pmv#nodejs#utils#openRepoPage(l:package)
   endif
