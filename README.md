@@ -91,7 +91,7 @@ By default is:
 
 # TODO's
 
-- Supported languajes and package managers
+- Supported languages and package managers:
   - [x] Elixir, hex
   - [x] NodeJS, npm/yarn
   - [x] Ruby, rubygems

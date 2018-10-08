@@ -1,24 +1,33 @@
 let s:registry = {
 \ 'Gemfile': {
 \   'namespace': 'pmv#ruby#rubygems',
-\   'languaje': 'Ruby',
+\   'language': 'Ruby',
 \   'description': 'package manager for Ruby'
 \ },
 \ 'mix.exs': {
 \   'namespace': 'pmv#elixir#hex',
-\   'languaje': 'Elixir',
+\   'language': 'Elixir',
 \   'description': 'package manager for elixir'
 \ },
 \ 'package.json': {
 \   'namespace': 'pmv#nodejs#npm',
-\   'languaje': 'NodeJS',
+\   'language': 'NodeJS',
 \   'description': 'package manager for nodejs'
 \ },
 \}
 
+function s:listAllSupportedLanguages() abort
+  return join(values(map(s:registry, 'v:val,language')), ', ')
+endfunction
+
 function! s:getNameSpaceFromFile(filename) abort
-  let l:resolved_namespace = s:registry[a:filename].namespace
-  return l:resolved_namespace
+  if has_key(s:registry, a:filename)
+    let l:resolved_namespace = s:registry[a:filename].namespace
+    return l:resolved_namespace
+  else
+    echo 'Not supported language/file, currently supported: ' . s:listAllSupportedLanguages()
+    return 'return'
+  endif
 endfunction
 
 function! pmv#Registry#GetFunction(filename, function_name) abort
