@@ -80,19 +80,18 @@ Note: this uses `open` on OSX and `xdg-open` on Linux systems.
 
 By default is:
 
-| Mappings   | Command |
---------------------------------
-| <leader>pm | :PmvLastRelease |
-| <leader>pa | :PmvAllReleases |
-| <leader>pp | :PmvAppendRelease |
-| <leader>pi | :PmvPackageInfo |
-| <leader>po | :PmvOpenRepoPage |
-| <leader>pd | :PmvOpenDocs |
-
+| Shortcut     | Command             |
+| ------------ | ------------------- |
+| `<leader>pm` | `:PmvLastRelease`   |
+| `<leader>pa` | `:PmvAllReleases`   |
+| `<leader>pp` | `:PmvAppendRelease` |
+| `<leader>pi` | `:PmvPackageInfo`   |
+| `<leader>po` | `:PmvOpenRepoPage`  |
+| `<leader>pd` | `:PmvOpenDocs`      |
 
 # TODO's
 
-- Support languajes and package managers
+- Supported languajes and package managers
   - [x] Elixir, hex
   - [x] NodeJS, npm/yarn
   - [x] Ruby, rubygems
