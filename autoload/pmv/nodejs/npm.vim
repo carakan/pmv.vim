@@ -21,8 +21,12 @@ function! pmv#nodejs#npm#lastRelease() abort
   end
 endfunction
 
+" Nodejs doesn't provide docs an alternative could be yarn.pm
 function! pmv#nodejs#npm#openDocs(package_name)
-  echo 'Not implemented'
+  let l:package = pmv#nodejs#utils#getPackageName(a:package_name)
+  if !empty(l:package)
+    call pmv#utils#openUri('https://yarn.pm/' . l:package)
+  endif
 endfunction
 
 function! pmv#nodejs#npm#openGithub(package_name)
