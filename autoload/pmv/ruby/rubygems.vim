@@ -5,7 +5,7 @@ function! pmv#ruby#rubygems#allReleases(package_name)
   endif
   let l:gem_info = pmv#ruby#utils#getApiPackageVersions(l:gem_name)
   let l:format_version = 'v:val.number . "\t built at: " . v:val.built_at'
-  call pmv#utils#render(map(l:gem_info, l:format_version))
+  call pmv#utils#render(map(l:gem_info, l:format_version), 'All releases of: ' . l:gem_name)
 endfunction
 
 function! pmv#ruby#rubygems#lastRelease()

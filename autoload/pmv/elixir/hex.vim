@@ -3,7 +3,7 @@ function! pmv#elixir#hex#allReleases(package_name)
   if !empty(l:package)
     let l:releases = pmv#elixir#hexApi#getAllReleases(l:package)
     if !empty(l:releases)
-      call pmv#utils#render(l:releases)
+      call pmv#utils#render(l:releases, 'All releases of: ' . l:package)
     endif
   end
 endfunction

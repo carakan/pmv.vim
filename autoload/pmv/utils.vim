@@ -8,14 +8,18 @@ function! pmv#utils#fetchApiPackage(uri)
   return webapi#json#decode(l:content)
 endfunction
 
-function! pmv#utils#render(input)
+function! pmv#utils#render(input, ...)
   silent keepalt belowright split markdown
   setlocal nosmartindent noautoindent noswapfile nobuflisted nospell nowrap modifiable
   setlocal buftype=nofile bufhidden=hide
-
+  setlocal textwidth=90
   normal! ggdG
-  call setline(1, a:input)
-
+  if a:0 > 0
+    call setline(1, a:1)
+    call setline(2, a:input)
+  else
+    call setline(1, a:input)
+  endif
   exec 'resize 10'
   setlocal nomodifiable filetype=versioning
   nnoremap <silent> <buffer> q :bd<CR>

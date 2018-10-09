@@ -4,7 +4,7 @@ function! pmv#nodejs#npm#allReleases(package_name)
     let l:releases = pmv#nodejs#utils#getApiAllReleases(l:package)
     echo l:releases[0]
     if !empty(l:releases)
-      call pmv#utils#render(l:releases)
+      call pmv#utils#render(l:releases, 'All releases of: ' . l:package)
     endif
   end
 endfunction
@@ -37,5 +37,21 @@ function! pmv#nodejs#npm#openGithub(package_name)
 endfunction
 
 function! pmv#nodejs#npm#packageInfo(package_name)
-  echo 'Not implemented yet!'
+  let l:package = pmv#nodejs#utils#getPackageName('')
+  if !empty(l:package)
+    let l:jsonApi = pmv#nodejs#utils#getApiPackage(l:package)
+
+    let l:messageInfo = ['Last version: ' . l:jsonApi['dist-tags'].latest]
+    call add(l:messageInfo, 'Authors: ' . l:jsonApi.author.name)
+    call add(l:messageInfo, 'Project URL: ' . l:jsonApi.homepage)
+    call add(l:messageInfo, 'Bugtracker URL: ' . l:jsonApi.bugs.url)
+    call add(l:messageInfo, 'Description: ' . l:jsonApi.description)
+    if has_key(l:jsonApi, 'licence')
+      call add(l:messageInfo, 'Licence: ' . l:jsonApi.licence)
+    endif
+    if has_key(l:jsonApi, 'keywords')
+      call add(l:messageInfo, 'Keywords: ' . join(l:jsonApi.keywords, ', '))
+    endif
+    call pmv#utils#render(l:messageInfo)
+  endif
 endfunction
