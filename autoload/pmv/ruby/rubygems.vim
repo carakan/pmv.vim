@@ -23,15 +23,15 @@ function! pmv#ruby#rubygems#packageInfo(package_name)
   if empty(gem_name)
     return
   endif
-  let gem_info = pmv#ruby#utils#getApiPackage(gem_name)
+  let l:gem_info = pmv#ruby#utils#getApiPackage(gem_name)
 
-  let str = 'Last version: ' . gem_info.version . "\<cr>"
-  let str = str . 'Authors: ' . gem_info.authors . "\<cr>"
-  let str = str . 'Downloads: ' . gem_info.version_downloads . "\<cr>"
-  let str = str . 'Project uri: ' . gem_info.project_uri . "\<cr>"
-  let str = str . 'Source code uri: ' . gem_info.source_code_uri . "\<cr>"
-  let str = str . 'Description: ' . gem_info.info
-  call pmv#utils#render(str)
+  let l:messageInfo = ['Last version: ' . l:gem_info.version ]
+  call add(l:messageInfo, 'Authors: ' . l:gem_info.authors)
+  call add(l:messageInfo, 'Downloads: ' . l:gem_info.version_downloads)
+  call add(l:messageInfo, 'Project uri: ' . l:gem_info.project_uri)
+  call add(l:messageInfo, 'Source code uri: ' . l:gem_info.source_code_uri)
+  call add(l:messageInfo, 'Description: ' . l:gem_info.info)
+  call pmv#utils#render(l:messageInfo)
 endfunction
 
 function! pmv#ruby#rubygems#appendRelease()
