@@ -37,10 +37,10 @@ function! pmv#rust#utils#getApiAllReleases(package)
   endif
 endfunction
 
-function! pmv#rust#utils#openRepoPage(package)
+function! pmv#rust#utils#openRepoPage(package, section)
   let l:json = pmv#rust#utils#getApiPackage(a:package)
-  if has_key(l:json.crate, 'homepage')
-    call pmv#utils#openUri(l:json.crate.homepage)
+  if has_key(l:json.crate, a:section)
+    call pmv#utils#openUri(l:json.crate[a:section])
   else
     redraw
     echo 'No Github link found for ' . a:package . '!'

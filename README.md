@@ -95,6 +95,7 @@ By default is:
   - [x] Elixir, hex
   - [x] NodeJS, npm/yarn
   - [x] Ruby, rubygems
+  - [x] Rust, cargo/cratos
 - Refactor
 - Async API calls
 - Test's
