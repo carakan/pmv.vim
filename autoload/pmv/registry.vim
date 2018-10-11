@@ -2,17 +2,22 @@ let s:registry = {
 \ 'Gemfile': {
 \   'namespace': 'pmv#ruby#rubygems',
 \   'language': 'Ruby',
-\   'description': 'package manager for Ruby'
+\   'description': 'Rubygems: package manager for Ruby'
 \ },
 \ 'mix.exs': {
 \   'namespace': 'pmv#elixir#hex',
 \   'language': 'Elixir',
-\   'description': 'package manager for elixir'
+\   'description': 'Hex: package manager for elixir'
 \ },
 \ 'package.json': {
 \   'namespace': 'pmv#nodejs#npm',
 \   'language': 'NodeJS',
-\   'description': 'package manager for nodejs'
+\   'description': 'Npm: package manager for nodejs'
+\ },
+\ 'Cargo.toml': {
+\   'namespace': 'pmv#rust#crates',
+\   'language': 'Rust',
+\   'description': 'Crates: package manager registry for Rust'
 \ },
 \}
 
