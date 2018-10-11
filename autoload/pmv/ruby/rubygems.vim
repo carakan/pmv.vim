@@ -5,7 +5,7 @@ function! pmv#ruby#rubygems#allReleases(package_name)
   endif
   let l:gem_info = pmv#ruby#utils#getApiPackageVersions(l:gem_name)
   let l:format_version = 'v:val.number . "\t built at: " . v:val.built_at'
-  call pmv#utils#render(map(l:gem_info, l:format_version), 'All releases of: ' . l:gem_name)
+  call pmv#utils#renderPopup(map(l:gem_info, l:format_version), 'All releases of: ' . l:gem_name)
 endfunction
 
 function! pmv#ruby#rubygems#lastRelease()
@@ -31,7 +31,7 @@ function! pmv#ruby#rubygems#packageInfo(package_name)
   call add(l:messageInfo, 'Project uri: ' . l:gem_info.project_uri)
   call add(l:messageInfo, 'Source code uri: ' . l:gem_info.source_code_uri)
   call add(l:messageInfo, 'Description: ' . l:gem_info.info)
-  call pmv#utils#render(l:messageInfo)
+  call pmv#utils#renderPopup(l:messageInfo)
 endfunction
 
 function! pmv#ruby#rubygems#appendRelease()
@@ -66,7 +66,7 @@ function! rubygems#Search(query)
   for gem in response
     let content = content . gem.name . ': ' . s:strip(gem.info) . "\<cr>"
   endfor
-  call pmv#utils#render(content)
+  call pmv#utils#renderPopup(content)
 endfunction
 
 function! rubygems#clean_signs()
@@ -97,23 +97,6 @@ function! rubygems#GemfileCheck()
       exe 'sign unplace ' . index
     endif
   endfor
-endfunction
-
-function! rubygems#BundleAudit()
-  if exists('g:rubygems_bundle_audit_autocheck_disable')
-    return
-  endif
-  if executable('bundle-audit') != 1
-    return
-  endif
-  if !filereadable('./Gemfile.lock')
-    return
-  endif
-  let result = system('bundle-audit | grep -v "No vulnerabilities found"')
-  if strlen(result) > 0
-    call pmv#utils#render(result)
-    exec 'resize 7'
-  endif
 endfunction
 
 function! s:gem_name_from_current_line()

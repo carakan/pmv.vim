@@ -8,7 +8,7 @@ function! pmv#utils#fetchApiPackage(uri)
   return webapi#json#decode(l:content)
 endfunction
 
-function! pmv#utils#render(input, ...)
+function! pmv#utils#renderPopup(input, ...)
   silent keepalt belowright split markdown
   setlocal nosmartindent noautoindent noswapfile nobuflisted nospell nowrap modifiable
   setlocal buftype=nofile bufhidden=hide

@@ -4,7 +4,7 @@ function! pmv#nodejs#npm#allReleases(package_name)
     let l:releases = pmv#nodejs#utils#getApiAllReleases(l:package)
     echo l:releases[0]
     if !empty(l:releases)
-      call pmv#utils#render(l:releases, 'All releases of: ' . l:package)
+      call pmv#utils#renderPopup(l:releases, 'All releases of: ' . l:package)
     endif
   end
 endfunction
@@ -52,6 +52,6 @@ function! pmv#nodejs#npm#packageInfo(package_name)
     if has_key(l:jsonApi, 'keywords')
       call add(l:messageInfo, 'Keywords: ' . join(l:jsonApi.keywords, ', '))
     endif
-    call pmv#utils#render(l:messageInfo)
+    call pmv#utils#renderPopup(l:messageInfo)
   endif
 endfunction
