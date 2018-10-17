@@ -6,7 +6,7 @@ function! pmv#elixir#hexApi#getPackageInfo(package)
   if match(l:info, 'No package with name') != 0
     return split(l:info, '\n')
   else
-    call s:packageNotFound(a:package)
+    call pmv#utils#packageNotFound(a:package)
   endif
 endfunction
 
@@ -30,6 +30,3 @@ function! s:extractDate(str)
   return l:date
 endfunction
 
-function! s:packageNotFound(package)
-  echom 'No package with name ' . a:package
-endfunction

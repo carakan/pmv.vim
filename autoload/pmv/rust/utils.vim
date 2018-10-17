@@ -1,7 +1,7 @@
 function! pmv#rust#utils#getPackageName(qarg)
   if empty(a:qarg)
     let l:package = s:scanForPackage()
-    if s:packageNotFound(l:package)
+    if pmv#utils#packageNotFound(l:package)
       return
     endif
     return l:package
@@ -18,15 +18,6 @@ function! s:scanForPackage()
   else
     return
   endif
-endfunction
-
-function! s:packageNotFound(package)
-  if empty(a:package)
-    redraw
-    echom 'No package found on this line!'
-    return 1
-  endif
-  return 0
 endfunction
 
 function! pmv#rust#utils#getApiAllReleases(package)

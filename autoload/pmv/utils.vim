@@ -25,6 +25,15 @@ function! pmv#utils#renderPopup(input, ...)
   nnoremap <silent> <buffer> q :bd<CR>
 endfunction
 
+function! pmv#utils#packageNotFound(package)
+  if empty(a:package)
+    redraw
+    echom '>>> No package found on this line! <<<'
+    return 1
+  endif
+  return 0
+endfunction
+
 function! pmv#utils#openUri(uri)
   if s:is_macunix
     call system('open ' . shellescape(a:uri))

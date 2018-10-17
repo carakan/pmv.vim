@@ -3,6 +3,13 @@
 Vim plugin that provides functions to interact with your package/lib manager for your
 favorite language and it's generic!
 
+### Supported languages and package managers:
+
+- [x] Elixir, hex
+- [x] NodeJS, npm/yarn
+- [x] Ruby, rubygems
+- [x] Rust, cargo/cratos
+
 ### Prerequisites
 
 This plugin uses [mattn/webapi-vim](https://github.com/mattn/webapi-vim).
@@ -91,11 +98,6 @@ By default is:
 
 # TODO's
 
-- Supported languages and package managers:
-  - [x] Elixir, hex
-  - [x] NodeJS, npm/yarn
-  - [x] Ruby, rubygems
-  - [x] Rust, cargo/cratos
 - Refactor
 - Async API calls
 - Test's
