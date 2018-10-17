@@ -1,5 +1,5 @@
-function! pmv#ruby#rubygems#allReleases(package_name)
-  let l:gem_name = s:gem_name_from_current_line()
+function! pmv#ruby#rubygems#allReleases(packageName)
+  let l:gem_name = pmv#ruby#utils#getPackageName(a:packageName)
   if empty(l:gem_name)
     return
   endif
@@ -9,7 +9,7 @@ function! pmv#ruby#rubygems#allReleases(package_name)
 endfunction
 
 function! pmv#ruby#rubygems#lastRelease()
-  let l:gem_name = s:gem_name_from_current_line()
+  let l:gem_name = pmv#ruby#utils#getPackageName('')
   if empty(l:gem_name)
     return
   endif
@@ -18,8 +18,8 @@ function! pmv#ruby#rubygems#lastRelease()
   echo l:output
 endfunction
 
-function! pmv#ruby#rubygems#packageInfo(package_name)
-  let gem_name = s:gem_name_from_current_line()
+function! pmv#ruby#rubygems#packageInfo(packageName)
+  let gem_name = pmv#ruby#utils#getPackageName(a:packageName)
   if empty(gem_name)
     return
   endif
@@ -35,7 +35,7 @@ function! pmv#ruby#rubygems#packageInfo(package_name)
 endfunction
 
 function! pmv#ruby#rubygems#appendRelease()
-  let gem_name = s:gem_name_from_current_line()
+  let gem_name = pmv#ruby#utils#getPackageName('')
   if empty(gem_name)
     return
   endif
@@ -45,15 +45,15 @@ function! pmv#ruby#rubygems#appendRelease()
   execute "normal! A, '~> ".gem_version."'"
 endfunction
 
-function! pmv#ruby#rubygems#openDocs(package_name)
-  let l:gemName = s:gem_name_from_current_line()
+function! pmv#ruby#rubygems#openDocs(packageName)
+  let l:gemName = pmv#ruby#utils#getPackageName(a:packageName)
   if !empty(l:gemName)
     call pmv#ruby#utils#openPage(l:gemName, 'documentation_uri')
   endif
 endfunction
 
-function! pmv#ruby#rubygems#openGithub(package_name)
-  let l:gemName = s:gem_name_from_current_line()
+function! pmv#ruby#rubygems#openGithub(packageName)
+  let l:gemName = pmv#ruby#utils#getPackageName(a:packageName)
   if !empty(l:gemName)
     call pmv#ruby#utils#openPage(l:gemName, 'homepage_uri')
   endif
@@ -71,58 +71,6 @@ endfunction
 
 function! rubygems#clean_signs()
   sign unplace *
-endfunction
-
-function! rubygems#GemfileCheck()
-  sign unplace *
-  normal! gg
-  call s:highlight_signs()
-  let lines = getbufline(bufname('%'), 0, line('$'))
-  let index = 0
-  for line in lines
-    let index += 1
-    call s:update_cursor_position(index)
-    let gem_name = s:extract_gem_name(line)
-    let current_gem_version = s:extract_gem_version(line)
-
-    if strlen(gem_name) < 2 || strlen(current_gem_version) < 2
-      continue
-    endif
-
-    call s:hi_line(index, 'rubygem_checking')
-    let gem_info = pmv#ruby#utils#getApiPackage(gem_name)
-    if s:compare_versions(current_gem_version, gem_info.version)
-      call s:hi_line(index, 'rubygem_warning',)
-    else
-      exe 'sign unplace ' . index
-    endif
-  endfor
-endfunction
-
-function! s:gem_name_from_current_line()
-  let l:gemName = s:extract_gem_name(getline('.'))
-  return l:gemName
-endfunction
-
-function! s:is_gem_definition(str_arr)
-  let l:gem_def_prefixes = [
-        \ 'gem',
-        \ 'spec.add_development_dependency',
-        \ 'spec.add_runtime_dependency'
-        \ ]
-
-  return index(l:gem_def_prefixes, a:str_arr[0]) >= 0
-endfunction
-
-function! s:extract_gem_name(str)
-  let str = split(a:str, ' ')
-  if len(str) > 1 && s:is_gem_definition(str)
-    let gem_name = tolower(str[1])
-    let gem_name = matchstr(gem_name, '[0-9A-z-_]\+')
-    return gem_name
-  else
-    return
-  endif
 endfunction
 
 function! s:extract_gem_version(str)
