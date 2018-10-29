@@ -55,3 +55,14 @@ function! pmv#nodejs#npm#packageInfo(package_name)
     call pmv#utils#renderPopup(l:messageInfo)
   endif
 endfunction
+
+function! pmv#nodejs#npm#packageSearch(query)
+  let l:query = pmv#ruby#utils#getPackageName(a:query)
+  let l:uri = 'https://www.npmjs.com/search?q=' . l:query
+  let l:response = pmv#utils#fetchApiPackage(l:uri)
+  let l:resultSearch = []
+  for l:package in l:response.objects
+    call add(l:resultSearch, 'Package: ' . l:package.package.name . ': ' . l:package.package.description)
+  endfor
+  call pmv#utils#renderPopup(l:resultSearch, 'Search results for: ' . l:query)
+endfunction

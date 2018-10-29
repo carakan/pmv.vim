@@ -67,8 +67,8 @@ function! pmv#ruby#rubygems#packageSearch(query)
   for l:gemInfo in l:response
     call add(l:resultSearch, 'Gem: ' . l:gemInfo.name . ': ' . s:strip(l:gemInfo.info))
   endfor
-  call pmv#utils#renderPopup(l:resultSearch)
-endfunction 
+  call pmv#utils#renderPopup(l:resultSearch, 'Search results for: ' . l:query)
+endfunction
 
 function! rubygems#clean_signs()
   sign unplace *
