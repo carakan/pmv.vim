@@ -20,7 +20,6 @@ function! s:scanForPackage()
   endif
 endfunction
 
-
 function! pmv#nodejs#utils#getApiAllReleases(package)
   let l:json = pmv#nodejs#utils#getApiPackage(a:package)
   if has_key(l:json, 'versions')

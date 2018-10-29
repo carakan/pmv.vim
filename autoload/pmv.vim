@@ -28,3 +28,7 @@ function! pmv#packageInfo(package_name)
   call pmv#Registry#GetFunctionAndParam(l:file_name, 'packageInfo', a:package_name)
 endfunction
 
+function! pmv#packageSearch(query)
+  let l:file_name = expand('%:t')
+  call pmv#Registry#GetFunctionAndParam(l:file_name, 'packageSearch', a:query)
+endfunction

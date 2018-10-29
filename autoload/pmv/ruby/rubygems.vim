@@ -35,14 +35,14 @@ function! pmv#ruby#rubygems#packageInfo(packageName)
 endfunction
 
 function! pmv#ruby#rubygems#appendRelease()
-  let gem_name = pmv#ruby#utils#getPackageName('')
-  if empty(gem_name)
+  let l:gemName = pmv#ruby#utils#getPackageName('')
+  if empty(l:gemName)
     return
   endif
-  let gem_info = pmv#ruby#utils#getApiPackage(gem_name)
-  let gem_version = gem_info.version
+  let l:gemInfo = pmv#ruby#utils#getApiPackage(l:gemName)
+  let l:gemVersion = l:gemInfo.version
   call s:remove_current_version()
-  execute "normal! A, '~> ".gem_version."'"
+  execute "normal! A, '~> " . l:gemVersion . "'"
 endfunction
 
 function! pmv#ruby#rubygems#openDocs(packageName)
@@ -59,15 +59,16 @@ function! pmv#ruby#rubygems#openGithub(packageName)
   endif
 endfunction
 
-function! rubygems#Search(query)
-  let uri = 'https://rubygems.org/api/v1/search.json?query=' . a:query
-  let response = pmv#utils#fetchApiPackage(uri)
-  let content = ''
-  for gem in response
-    let content = content . gem.name . ': ' . s:strip(gem.info) . "\<cr>"
+function! pmv#ruby#rubygems#packageSearch(query)
+  let l:query = pmv#ruby#utils#getPackageName(a:query)
+  let l:uri = 'https://rubygems.org/api/v1/search.json?query=' . l:query
+  let l:response = pmv#utils#fetchApiPackage(l:uri)
+  let l:resultSearch = []
+  for l:gemInfo in l:response
+    call add(l:resultSearch, 'Gem: ' . l:gemInfo.name . ': ' . s:strip(l:gemInfo.info))
   endfor
-  call pmv#utils#renderPopup(content)
-endfunction
+  call pmv#utils#renderPopup(l:resultSearch)
+endfunction 
 
 function! rubygems#clean_signs()
   sign unplace *

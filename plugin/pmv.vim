@@ -16,6 +16,9 @@ nnoremap <plug>(pmv-open-docs) :<c-u>PmvOpenDocs<cr>
 command! -nargs=? PmvOpenRepoPage call pmv#openRepoPage(<q-args>)
 nnoremap <plug>(pmv-open-repo-page) :<c-u>PmvOpenRepoPage<cr>
 
+command! -nargs=? PmvPackageSearch call pmv#packageSearch(<q-args>)
+nnoremap <plug>(pmv-package-seach) :<c-u>PmvPackageSearch<cr>
+
 function! s:register_mapping(command, shortcut, has_count)
   if a:has_count
     execute 'nnoremap <silent> <Plug>'. a:command . ' :<C-u>'. a:command . ' v:count<CR>'
@@ -35,3 +38,4 @@ call s:register_mapping('PmvAppendRelease','<Leader>pp', 0)
 call s:register_mapping('PmvPackageInfo','<Leader>pi', 0)
 call s:register_mapping('PmvOpenRepoPage','<Leader>po', 0)
 call s:register_mapping('PmvOpenDocs','<Leader>pd', 0)
+call s:register_mapping('PmvPackageSearch','<Leader>ps', 0)
