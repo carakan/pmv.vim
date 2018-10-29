@@ -4,7 +4,7 @@ function! pmv#nodejs#npm#allReleases(package_name)
     let l:releases = pmv#nodejs#utils#getApiAllReleases(l:package)
     echo l:releases[0]
     if !empty(l:releases)
-      call pmv#utils#renderPopup(l:releases, 'All releases of: ' . l:package)
+      call pmv#utils#renderPopup(l:releases, 'All releases of: "' . l:package . '"')
     endif
   end
 endfunction

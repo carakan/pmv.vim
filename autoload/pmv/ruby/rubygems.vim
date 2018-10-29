@@ -5,7 +5,7 @@ function! pmv#ruby#rubygems#allReleases(packageName)
   endif
   let l:gem_info = pmv#ruby#utils#getApiPackageVersions(l:gem_name)
   let l:format_version = 'v:val.number . "\t built at: " . v:val.built_at'
-  call pmv#utils#renderPopup(map(l:gem_info, l:format_version), 'All releases of: ' . l:gem_name)
+  call pmv#utils#renderPopup(map(l:gem_info, l:format_version), 'All releases of: "' . l:gem_name . '"')
 endfunction
 
 function! pmv#ruby#rubygems#lastRelease()
@@ -65,7 +65,7 @@ function! pmv#ruby#rubygems#packageSearch(query)
   let l:response = pmv#utils#fetchApiPackage(l:uri)
   let l:resultSearch = []
   for l:gemInfo in l:response
-    call add(l:resultSearch, 'Gem: "' . l:gemInfo.name . '" ' . s:strip(l:gemInfo.info))
+    call add(l:resultSearch, '"' . l:gemInfo.name . '" ' . s:strip(l:gemInfo.info))
   endfor
   call pmv#utils#renderPopup(l:resultSearch, 'Search results for: "' . l:query . '"')
 endfunction

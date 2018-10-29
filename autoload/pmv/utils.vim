@@ -44,4 +44,3 @@ endfunction
 
 let s:is_unix = has('unix')
 let s:is_macunix = (has('mac') || has('macunix') || has('gui_macvim') || (!executable('xdg-open') && system('uname') =~? '^darwin'))
-

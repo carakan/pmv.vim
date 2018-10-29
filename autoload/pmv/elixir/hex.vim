@@ -3,7 +3,7 @@ function! pmv#elixir#hex#allReleases(package_name)
   if !empty(l:package)
     let l:releases = pmv#elixir#hexApi#getAllReleases(l:package)
     if !empty(l:releases)
-      call pmv#utils#renderPopup(l:releases, 'All releases of: ' . l:package)
+      call pmv#utils#renderPopup(l:releases, 'All releases of: "' . l:package . '"')
     endif
   end
 endfunction
@@ -50,4 +50,15 @@ function! pmv#elixir#hex#packageInfo(package_name)
       call pmv#utils#renderPopup(l:package_info)
     endif
   endif
+endfunction
+
+function! pmv#elixir#hex#packageSearch(query)
+  let l:query = pmv#elixir#hexUtils#getPackageName(a:query)
+  let l:uri = 'https://hex.pm/api/packages?search=' . l:query
+  let l:response = pmv#utils#fetchApiPackage(l:uri)
+  let l:resultSearch = []
+  for l:package in l:response
+    call add(l:resultSearch, '"' . l:package.name . '", ' . l:package.meta.description . ', Downloads: ' . l:package.downloads.all)
+  endfor
+  call pmv#utils#renderPopup(l:resultSearch, 'Search results for: "' . l:query . '"')
 endfunction
