@@ -62,7 +62,7 @@ function! pmv#nodejs#npm#packageSearch(query)
   let l:response = pmv#utils#fetchApiPackage(l:uri)
   let l:resultSearch = []
   for l:package in l:response.objects
-    call add(l:resultSearch, 'Package: ' . l:package.package.name . ': ' . l:package.package.description)
+    call add(l:resultSearch, 'Package: "' . l:package.package.name . '" ' . l:package.package.description)
   endfor
-  call pmv#utils#renderPopup(l:resultSearch, 'Search results for: ' . l:query)
+  call pmv#utils#renderPopup(l:resultSearch, 'Search results for: "' . l:query . '"')
 endfunction

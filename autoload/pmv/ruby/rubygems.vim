@@ -65,9 +65,9 @@ function! pmv#ruby#rubygems#packageSearch(query)
   let l:response = pmv#utils#fetchApiPackage(l:uri)
   let l:resultSearch = []
   for l:gemInfo in l:response
-    call add(l:resultSearch, 'Gem: ' . l:gemInfo.name . ': ' . s:strip(l:gemInfo.info))
+    call add(l:resultSearch, 'Gem: "' . l:gemInfo.name . '" ' . s:strip(l:gemInfo.info))
   endfor
-  call pmv#utils#renderPopup(l:resultSearch, 'Search results for: ' . l:query)
+  call pmv#utils#renderPopup(l:resultSearch, 'Search results for: "' . l:query . '"')
 endfunction
 
 function! rubygems#clean_signs()
