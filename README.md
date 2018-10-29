@@ -83,22 +83,26 @@ the system-default browser.
 
 Note: this uses `open` on OSX and `xdg-open` on Linux systems.
 
+### `PmvPackageSearch [query]`
+
+Search for a `query` and show results.
+
 ### Mappings
 
 By default is:
 
 | Shortcut     | Command             |
 | ------------ | ------------------- |
-| `<leader>pm` | `:PmvLastRelease`   |
 | `<leader>pa` | `:PmvAllReleases`   |
-| `<leader>pp` | `:PmvAppendRelease` |
-| `<leader>pi` | `:PmvPackageInfo`   |
-| `<leader>po` | `:PmvOpenRepoPage`  |
 | `<leader>pd` | `:PmvOpenDocs`      |
+| `<leader>pi` | `:PmvPackageInfo`   |
+| `<leader>pm` | `:PmvLastRelease`   |
+| `<leader>po` | `:PmvOpenRepoPage`  |
+| `<leader>pp` | `:PmvAppendRelease` |
+| `<leader>ps` | `:PmvPackageSearch` |
 
 # TODO's
 
-- Refactor
 - Async API calls
 - Test's
 
