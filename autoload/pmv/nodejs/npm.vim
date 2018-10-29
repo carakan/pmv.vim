@@ -57,8 +57,8 @@ function! pmv#nodejs#npm#packageInfo(package_name)
 endfunction
 
 function! pmv#nodejs#npm#packageSearch(query)
-  let l:query = pmv#ruby#utils#getPackageName(a:query)
-  let l:uri = 'https://www.npmjs.com/search?q=' . l:query
+  let l:query = pmv#nodejs#utils#getPackageName(a:query)
+  let l:uri = 'https://registry.npmjs.com/-/v1/search?text=' . l:query
   let l:response = pmv#utils#fetchApiPackage(l:uri)
   let l:resultSearch = []
   for l:package in l:response.objects

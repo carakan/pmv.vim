@@ -12,7 +12,7 @@ function! pmv#utils#renderPopup(input, ...)
   silent keepalt belowright split markdown
   setlocal nosmartindent noautoindent noswapfile nobuflisted nospell nowrap modifiable
   setlocal buftype=nofile bufhidden=hide
-  setlocal textwidth=90
+  setlocal wrap
   normal! ggdG
   if a:0 > 0
     call setline(1, a:1)
