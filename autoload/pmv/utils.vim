@@ -9,20 +9,15 @@ function! pmv#utils#fetchApiPackage(uri)
 endfunction
 
 function! pmv#utils#renderPopup(input, ...)
-  silent keepalt belowright split markdown
-  setlocal nosmartindent noautoindent noswapfile nobuflisted nospell nowrap modifiable
-  setlocal buftype=nofile bufhidden=hide
-  setlocal wrap
-  normal! ggdG
-  if a:0 > 0
-    call setline(1, a:1)
-    call setline(2, a:input)
-  else
-    call setline(1, a:input)
-  endif
-  exec 'resize 10'
-  setlocal nomodifiable filetype=versioning
-  nnoremap <silent> <buffer> q :bd<CR>
+  let s:buf = nvim_create_buf(0, 1)
+  call nvim_buf_set_lines(s:buf, 0, -1, 0, a:input)
+  call nvim_open_win(s:buf, v:false, {
+          \ 'relative': 'cursor',
+          \ 'row': 0,
+          \ 'col': 0,
+          \   'width': 50,
+          \   'height': 15,
+          \ })
 endfunction
 
 function! pmv#utils#packageNotFound(package)
