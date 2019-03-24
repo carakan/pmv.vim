@@ -1,4 +1,17 @@
+let s:window = 0
+
+func! pmv#utils#closePopup()
+    if s:window
+        let id = win_id2win(s:window)
+        if id > 0
+            execute id . 'close!'
+        endif
+        let s:window = 0
+    endif
+endfunc
+
 function! pmv#utils#fetchApiPackage(uri)
+  call pmv#utils#closePopup()
   echom 'Retrieving information from: ' . a:uri
   let l:result = system(printf('curl -sS -L -i -X GET -H "Content-Cache: no-cache" "%s"', a:uri))
   let l:pos = stridx(l:result, "\r\n\r\n")
@@ -9,15 +22,16 @@ function! pmv#utils#fetchApiPackage(uri)
 endfunction
 
 function! pmv#utils#renderPopup(input, ...)
+  call pmv#utils#closePopup()
   let s:buf = nvim_create_buf(0, 1)
   call nvim_buf_set_lines(s:buf, 0, -1, 0, a:input)
-  call nvim_open_win(s:buf, v:false, {
+  let s:window = call('nvim_open_win', [s:buf, v:false, {
           \ 'relative': 'cursor',
           \ 'row': 0,
           \ 'col': 0,
-          \   'width': 50,
-          \   'height': 15,
-          \ })
+          \   'width': 80,
+          \   'height': 20,
+          \ }])
 endfunction
 
 function! pmv#utils#packageNotFound(package)
