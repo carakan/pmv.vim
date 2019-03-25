@@ -29,9 +29,12 @@ function! pmv#utils#renderPopup(input, ...)
           \ 'relative': 'cursor',
           \ 'row': 0,
           \ 'col': 0,
-          \   'width': 80,
-          \   'height': 20,
+          \   'width': 65,
+          \   'height': 18,
           \ }])
+  call nvim_win_set_option(s:window, 'number', v:false)
+  call nvim_win_set_option(s:window, 'wrap', v:true)
+  call nvim_win_set_option(s:window, 'relativenumber', v:false)
 endfunction
 
 function! pmv#utils#packageNotFound(package)
