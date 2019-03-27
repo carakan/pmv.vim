@@ -1,3 +1,6 @@
+command! -nargs=0 PmvClosePopup call pmv#utils#closePopup()
+nnoremap <plug>(pmv-close-popup) :<c-u>PmvClosePopup<cr>
+
 command! -nargs=0 PmvAppendRelease call pmv#appendRelease()
 nnoremap <plug>(pmv-append-release) :<c-u>PmvAppendRelease<cr>
 
@@ -32,6 +35,7 @@ function! s:register_mapping(command, shortcut, has_count)
   endif
 endfunction
 
+call s:register_mapping('PmvClosePopup','<Leader>pc', 0)
 call s:register_mapping('PmvLastRelease','<Leader>pm', 0)
 call s:register_mapping('PmvAllReleases','<Leader>pa', 0)
 call s:register_mapping('PmvAppendRelease','<Leader>pp', 0)
