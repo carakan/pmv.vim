@@ -6,7 +6,7 @@ setlocal iskeyword+=:
 syn case ignore
 
 syn match name "[0-9A-Za-z _-]\+:\s"
-syn match valueNumber "\d\+"
+syn match valueNumber "\d\|beta\|rc\|pre\+"
 syn region string start='"' end='"' skip='\\"'
 
 highlight link name Statement

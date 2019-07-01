@@ -1,14 +1,14 @@
 let s:window = 0
 
 func! pmv#utils#closePopup()
-    if s:window
-        let id = win_id2win(s:window)
-        if id > 0
-            execute id . 'close!'
-            autocmd! CursorMoved * call pmv#utils#closePopup()
-        endif
-        let s:window = 0
+  if s:window
+    let id = win_id2win(s:window)
+    if id > 0
+      execute id . 'close!'
+      autocmd! CursorMoved * call pmv#utils#closePopup()
     endif
+    let s:window = 0
+  endif
 endfunc
 
 function! pmv#utils#fetchApiPackage(uri)
