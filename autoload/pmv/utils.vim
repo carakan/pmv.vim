@@ -5,6 +5,7 @@ func! pmv#utils#closePopup()
         let id = win_id2win(s:window)
         if id > 0
             execute id . 'close!'
+            autocmd! CursorMoved * call pmv#utils#closePopup()
         endif
         let s:window = 0
     endif
@@ -35,6 +36,7 @@ function! pmv#utils#renderNewPopup(input, ...)
   call nvim_win_set_option(s:window, 'number', v:false)
   call nvim_win_set_option(s:window, 'wrap', v:true)
   call nvim_win_set_option(s:window, 'relativenumber', v:false)
+  autocmd CursorMoved * call pmv#utils#closePopup()
 endfunction
 
 function! pmv#utils#renderLegacyPopup(input, ...)
