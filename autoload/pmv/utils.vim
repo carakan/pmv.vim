@@ -25,6 +25,7 @@ endfunction
 function! pmv#utils#renderNewPopup(input, ...)
   call pmv#utils#closePopup()
   let s:buf = nvim_create_buf(0, 1)
+  call nvim_buf_set_option(s:buf, 'syntax', 'versioning')
   call nvim_buf_set_lines(s:buf, 0, -1, 0, a:input)
   let s:window = call('nvim_open_win', [s:buf, v:false, {
           \ 'relative': 'cursor',
@@ -33,9 +34,12 @@ function! pmv#utils#renderNewPopup(input, ...)
           \   'width': 65,
           \   'height': 12,
           \ }])
+  call nvim_win_set_option(s:window, 'cursorline', v:false)
+  call nvim_win_set_option(s:window, 'foldenable', v:false)
   call nvim_win_set_option(s:window, 'number', v:false)
-  call nvim_win_set_option(s:window, 'wrap', v:true)
   call nvim_win_set_option(s:window, 'relativenumber', v:false)
+  call nvim_win_set_option(s:window, 'statusline', '')
+  call nvim_win_set_option(s:window, 'wrap', v:true)
   autocmd CursorMoved * call pmv#utils#closePopup()
 endfunction
 
