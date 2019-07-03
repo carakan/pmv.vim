@@ -27,13 +27,19 @@ function! pmv#utils#renderNewPopup(input, ...)
   let s:input2 = map(a:input, ' "│" . v:val ')
   let s:buf = nvim_create_buf(0, 1)
   call nvim_buf_set_option(s:buf, 'syntax', 'versioning')
-  call nvim_buf_set_lines(s:buf, 0, -1, 0, ['┌────────────────────────────────────'] + s:input2)
+  let max_width = 65
+  let max_height = 16
+  let width = max(map(copy(s:input2), {_, v -> len(v)})) + 2
+  let width = (width > max_width) ? max_width : width
+  let height = len(s:input2)
+  let height = (height > max_height) ? max_height : height
+  call nvim_buf_set_lines(s:buf, 0, -1, 0, [  '┌' . repeat("─", width - 1)] + s:input2)
   let s:window = call('nvim_open_win', [s:buf, v:false, {
           \ 'relative': 'cursor',
           \ 'row': 0,
           \ 'col': 0,
-          \   'width': 65,
-          \   'height': 12,
+          \   'width': width,
+          \   'height': height,
           \ }])
   call nvim_win_set_option(s:window, 'cursorline', v:false)
   call nvim_win_set_option(s:window, 'foldenable', v:false)
