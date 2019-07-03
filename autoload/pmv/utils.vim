@@ -24,9 +24,10 @@ endfunction
 
 function! pmv#utils#renderNewPopup(input, ...)
   call pmv#utils#closePopup()
+  let s:input2 = map(a:input, ' "│" . v:val ')
   let s:buf = nvim_create_buf(0, 1)
   call nvim_buf_set_option(s:buf, 'syntax', 'versioning')
-  call nvim_buf_set_lines(s:buf, 0, -1, 0, a:input)
+  call nvim_buf_set_lines(s:buf, 0, -1, 0, ['┌────────────────────────────────────'] + s:input2)
   let s:window = call('nvim_open_win', [s:buf, v:false, {
           \ 'relative': 'cursor',
           \ 'row': 0,
