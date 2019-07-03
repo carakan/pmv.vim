@@ -27,7 +27,7 @@ function! pmv#utils#renderNewPopup(input, ...)
   let s:input2 = map(a:input, ' "│" . v:val ')
   let s:buf = nvim_create_buf(0, 1)
   call nvim_buf_set_option(s:buf, 'syntax', 'versioning')
-  let max_width = 65
+  let max_width = 72
   let max_height = 16
   let width = max(map(copy(s:input2), {_, v -> len(v)})) + 2
   let width = (width > max_width) ? max_width : width
