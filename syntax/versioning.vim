@@ -5,12 +5,12 @@ endif
 setlocal iskeyword+=:
 syn case ignore
 
-syn match name "[0-9A-Za-z _-]\+:\s"
-syn match valueNumber "\d\|beta\|rc\|pre\+"
-syn region string start='"' end='"' skip='\\"'
+syn match PMVname "[0-9A-Za-z _-]\+:\s"
+syn match PMVvalueNumber "\d\|beta\|rc\|pre\+"
+syn region PMVstring start='"' end='"' skip='\\"'
 
-highlight link name Statement
-highlight link valueNumber Number
-highlight link string String
+highlight link PMVname Statement
+highlight link PMVvalueNumber Number
+highlight link PMVstring String
 
 let b:current_syntax = 'versioning'
