@@ -13,7 +13,7 @@ endfunction
 function! pmv#elixir#hexApi#getAllReleases(package)
   let l:json = pmv#utils#fetchApiPackage('https://hex.pm/api/packages/' . a:package)
   if has_key(l:json, 'releases')
-    let l:format_version = 'Version: v:val.version . "\t Documentation: " . v:val.has_docs'
+    let l:format_version = '"Version: " . v:val.version . "\t Documentation: " . v:val.has_docs'
     return map(l:json.releases, l:format_version)
   endif
 endfunction
