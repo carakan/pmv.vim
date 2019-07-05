@@ -28,7 +28,7 @@ fu! s:exit_handler(id, data, event)
   let stdout = response['stdout']
   let response['code'] = +stdout[len(stdout) - 1]
   let raw = has_key(response['options'], 'raw') && response['options']['raw']
-  if len(stdout) == 1
+  if len(stdout) == 2
     let response['body'] = raw ? '' : {}
   else
     let body = stdout[0: len(stdout) - 2]
@@ -69,7 +69,7 @@ fu! pmv#request#send(url, options)
     \ '-q',
     \ '-L',
     \ '-w',
-    \ '%{http_code}',
+    \ '\n%{http_code}',
     \ s:method_parameter(a:options)
     \ ]
 
@@ -123,4 +123,8 @@ endfu
 
 fu! pmv#request#next_response(callback, ...)
   call add(s:next_responses, { 'callback': a:callback, 'args': a:000 })
+endfu
+
+fu! pmv#request#urlencode(input)
+  return substitute(a:input, '[^a-zA-Z0-9_./-]', '\=printf("%%%02X", char2nr(submatch(0)))', 'g')
 endfu
