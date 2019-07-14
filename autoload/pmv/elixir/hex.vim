@@ -4,6 +4,7 @@ function! pmv#elixir#hex#allReleases(package_name)
     let l:releases = pmv#elixir#hexApi#getAllReleases(l:package)
     if !empty(l:releases)
       call pmv#utils#renderPopup(l:releases, 'All releases of: "' . l:package . '"')
+      call pmv#utils#renderText(l:releases[0], line('.'))
     endif
   end
 endfunction
@@ -24,6 +25,7 @@ function! pmv#elixir#hex#lastRelease() abort
     let l:releases = pmv#elixir#hexApi#getAllReleases(l:package)
     if !empty(l:releases)
       echo 'Last version of ' . l:package . ' : ' . l:releases[0]
+      call pmv#utils#renderText(l:releases[0], line('.'))
     endif
   end
 endfunction

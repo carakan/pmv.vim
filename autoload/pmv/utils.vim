@@ -1,5 +1,18 @@
 let s:window = 0
 
+function! pmv#utils#renderText(version, lnum)
+  if exists('*nvim_buf_set_virtual_text')
+    call nvim_buf_set_virtual_text(
+                \   0,
+                \   0,
+                \   a:lnum - 1,
+                \   [['#', 'Comment'],
+                \    [' Last version: ' . a:version, 'NonText']],
+                \   {}
+                \ )
+  endif
+endfunction
+
 func! pmv#utils#closePopup()
   if s:window
     let id = win_id2win(s:window)
@@ -66,7 +79,6 @@ function! pmv#utils#renderLegacyPopup(input, ...)
   setlocal nomodifiable filetype=versioning
   nnoremap <silent> <buffer> q :bd<CR>
 endfunction
-
 
 function! pmv#utils#renderPopup(input, ...)
   if exists('*nvim_open_win')
