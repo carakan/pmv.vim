@@ -1,15 +1,16 @@
-function! pmv#nodejs#npm#allReleases(package_name)
+function! pmv#nodejs#npm#allReleases(package_name) abort
   let l:package = pmv#nodejs#utils#getPackageName(a:package_name)
   if !empty(l:package)
     let l:releases = pmv#nodejs#utils#getApiAllReleases(l:package)
     echo l:releases[0]
     if !empty(l:releases)
       call pmv#utils#renderPopup(l:releases, 'All releases of: "' . l:package . '"')
+      call pmv#utils#renderText(l:releases[0], line('.'))
     endif
   end
 endfunction
 
-function! pmv#nodejs#npm#appendRelease()
+function! pmv#nodejs#npm#appendRelease() abort
   echo 'Not implemented yet!'
 endfunction
 
@@ -18,25 +19,26 @@ function! pmv#nodejs#npm#lastRelease() abort
   if !empty(l:package)
     let l:jsonApi = pmv#nodejs#utils#getApiPackage(l:package)
     echo 'Last version of ' . l:package . ' : ' . l:jsonApi['dist-tags'].latest
+    call pmv#utils#renderText(l:jsonApi['dist-tags'].latest, line('.'))
   end
 endfunction
 
 " Nodejs doesn't provide docs an alternative could be yarn.pm
-function! pmv#nodejs#npm#openDocs(package_name)
+function! pmv#nodejs#npm#openDocs(package_name) abort
   let l:package = pmv#nodejs#utils#getPackageName(a:package_name)
   if !empty(l:package)
     call pmv#utils#openUri('https://yarn.pm/' . l:package)
   endif
 endfunction
 
-function! pmv#nodejs#npm#openGithub(package_name)
+function! pmv#nodejs#npm#openGithub(package_name) abort
   let l:package = pmv#nodejs#utils#getPackageName(a:package_name)
   if !empty(l:package)
     call pmv#nodejs#utils#openRepoPage(l:package)
   endif
 endfunction
 
-function! pmv#nodejs#npm#packageInfo(package_name)
+function! pmv#nodejs#npm#packageInfo(package_name) abort
   let l:package = pmv#nodejs#utils#getPackageName('')
   if !empty(l:package)
     let l:jsonApi = pmv#nodejs#utils#getApiPackage(l:package)
@@ -53,10 +55,11 @@ function! pmv#nodejs#npm#packageInfo(package_name)
       call add(l:messageInfo, 'Keywords: ' . join(l:jsonApi.keywords, ', '))
     endif
     call pmv#utils#renderPopup(l:messageInfo)
+    call pmv#utils#renderText(l:jsonApi['dist-tags'].latest, line('.'))
   endif
 endfunction
 
-function! pmv#nodejs#npm#packageSearch(query)
+function! pmv#nodejs#npm#packageSearch(query) abort
   let l:query = pmv#nodejs#utils#getPackageName(a:query)
   let l:uri = 'https://registry.npmjs.com/-/v1/search?text=' . l:query
   let l:response = pmv#utils#fetchApiPackage(l:uri)
