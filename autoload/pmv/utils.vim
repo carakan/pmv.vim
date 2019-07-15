@@ -96,7 +96,7 @@ function! pmv#utils#renderPopup(input, ...)
   endif
 endfunction
 
-function! pmv#utils#packageNotFound(package)
+function! pmv#utils#packageNotFound(package) abort
   if empty(a:package)
     redraw
     echom '>>> No package found on this line! <<<'
@@ -105,7 +105,7 @@ function! pmv#utils#packageNotFound(package)
   return 0
 endfunction
 
-function! pmv#utils#openUri(uri)
+function! pmv#utils#openUri(uri) abort
   if s:is_macunix
     call system('open ' . shellescape(a:uri))
   elseif s:is_unix

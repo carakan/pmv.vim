@@ -1,29 +1,31 @@
-function! pmv#ruby#rubygems#allReleases(packageName)
+function! pmv#ruby#rubygems#allReleases(packageName) abort
   let l:gem_name = pmv#ruby#utils#getPackageName(a:packageName)
   if empty(l:gem_name)
     return
   endif
   let l:gem_info = pmv#ruby#utils#getApiPackageVersions(l:gem_name)
+  call pmv#utils#renderText(l:gem_info[0].number, line('.'))
   let l:format_version = 'v:val.number . "\t built at: " . split(v:val.built_at, "T")[0]'
   call pmv#utils#renderPopup(map(l:gem_info, l:format_version), 'All releases of: "' . l:gem_name . '"')
 endfunction
 
-function! pmv#ruby#rubygems#lastRelease()
+function! pmv#ruby#rubygems#lastRelease() abort
   let l:gem_name = pmv#ruby#utils#getPackageName('')
   if empty(l:gem_name)
     return
   endif
   let l:gem_info = pmv#ruby#utils#getApiPackage(l:gem_name)
   let l:output = 'Last version of: ' . l:gem_name . ' : ' . l:gem_info.version
+  call pmv#utils#renderText(l:gem_info.version, line('.'))
   echo l:output
 endfunction
 
-function! pmv#ruby#rubygems#packageInfo(packageName)
-  let gem_name = pmv#ruby#utils#getPackageName(a:packageName)
-  if empty(gem_name)
+function! pmv#ruby#rubygems#packageInfo(packageName) abort
+  let l:gem_name = pmv#ruby#utils#getPackageName(a:packageName)
+  if empty(l:gem_name)
     return
   endif
-  let l:gem_info = pmv#ruby#utils#getApiPackage(gem_name)
+  let l:gem_info = pmv#ruby#utils#getApiPackage(l:gem_name)
 
   let l:messageInfo = ['Last version: ' . l:gem_info.version ]
   call add(l:messageInfo, 'Authors: ' . l:gem_info.authors)
@@ -34,7 +36,7 @@ function! pmv#ruby#rubygems#packageInfo(packageName)
   call pmv#utils#renderPopup(l:messageInfo)
 endfunction
 
-function! pmv#ruby#rubygems#appendRelease()
+function! pmv#ruby#rubygems#appendRelease() abort
   let l:gemName = pmv#ruby#utils#getPackageName('')
   if empty(l:gemName)
     return
@@ -45,7 +47,7 @@ function! pmv#ruby#rubygems#appendRelease()
   execute "normal! A, '~> " . l:gemVersion . "'"
 endfunction
 
-function! pmv#ruby#rubygems#openDocs(packageName)
+function! pmv#ruby#rubygems#openDocs(packageName) abort
   let l:gemName = pmv#ruby#utils#getPackageName(a:packageName)
   if !empty(l:gemName)
     call pmv#ruby#utils#openPage(l:gemName, 'documentation_uri')
@@ -59,7 +61,7 @@ function! pmv#ruby#rubygems#openGithub(packageName)
   endif
 endfunction
 
-function! pmv#ruby#rubygems#packageSearch(query)
+function! pmv#ruby#rubygems#packageSearch(query) abort
   let l:query = pmv#ruby#utils#getPackageName(a:query)
   let l:uri = 'https://rubygems.org/api/v1/search.json?query=' . l:query
   let l:response = pmv#utils#fetchApiPackage(l:uri)
@@ -75,9 +77,9 @@ function! rubygems#clean_signs()
 endfunction
 
 function! s:extract_gem_version(str)
-  let str = split(a:str, ' ')
-  if len(str) > 2 && s:is_gem_definition(str)
-    let gem_version = matchstr(str[-1], '[0-9.]\+')
+  let l:str = split(a:str, ' ')
+  if len(l:str) > 2 && s:is_gem_definition(l:str)
+    let gem_version = matchstr(l:str[-1], '[0-9.]\+')
     return gem_version
   else
     return

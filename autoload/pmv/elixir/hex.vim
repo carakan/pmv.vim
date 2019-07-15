@@ -1,4 +1,4 @@
-function! pmv#elixir#hex#allReleases(package_name)
+function! pmv#elixir#hex#allReleases(package_name) abort
   let l:package = pmv#elixir#hexUtils#getPackageName(a:package_name)
   if !empty(l:package)
     let l:releases = pmv#elixir#hexApi#getAllReleases(l:package)
@@ -9,7 +9,7 @@ function! pmv#elixir#hex#allReleases(package_name)
   end
 endfunction
 
-function! pmv#elixir#hex#appendRelease()
+function! pmv#elixir#hex#appendRelease() abort
   let l:package = pmv#elixir#hexUtils#getPackageName('')
   if !empty(l:package)
     let l:latest_release = pmv#elixir#hexApi#getLatestRelease(l:package)
@@ -24,27 +24,27 @@ function! pmv#elixir#hex#lastRelease() abort
   if !empty(l:package)
     let l:releases = pmv#elixir#hexApi#getAllReleases(l:package)
     if !empty(l:releases)
-      echo 'Last version of ' . l:package . ' : ' . l:releases[0]
       call pmv#utils#renderText(l:releases[0], line('.'))
+      echo 'Last version of ' . l:package . ' : ' . l:releases[0]
     endif
   end
 endfunction
 
-function! pmv#elixir#hex#openDocs(package_name)
+function! pmv#elixir#hex#openDocs(package_name) abort
   let l:package = pmv#elixir#hexUtils#getPackageName(a:package_name)
   if !empty(l:package)
     call pmv#elixir#hexUtils#openHexDocs(l:package)
   endif
 endfunction
 
-function! pmv#elixir#hex#openGithub(package_name)
+function! pmv#elixir#hex#openGithub(package_name) abort
   let l:package = pmv#elixir#hexUtils#getPackageName(a:package_name)
   if !empty(l:package)
     call pmv#elixir#hexUtils#openGithub(l:package)
   endif
 endfunction
 
-function! pmv#elixir#hex#packageInfo(package_name)
+function! pmv#elixir#hex#packageInfo(package_name) abort
   let l:package = pmv#elixir#hexUtils#getPackageName(a:package_name)
   if !empty(l:package)
     let l:package_info = pmv#elixir#hexApi#getPackageInfo(l:package)
@@ -54,7 +54,7 @@ function! pmv#elixir#hex#packageInfo(package_name)
   endif
 endfunction
 
-function! pmv#elixir#hex#packageSearch(query)
+function! pmv#elixir#hex#packageSearch(query) abort
   let l:query = pmv#elixir#hexUtils#getPackageName(a:query)
   let l:uri = 'https://hex.pm/api/packages?search=' . l:query
   let l:response = pmv#utils#fetchApiPackage(l:uri)
