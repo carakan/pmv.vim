@@ -69,7 +69,7 @@ function! pmv#ruby#rubygems#packageSearch(query) abort
   for l:gemInfo in l:response
     call add(l:resultSearch, '"' . l:gemInfo.name . '" ' . s:strip(l:gemInfo.info))
   endfor
-  call pmv#utils#renderPopup(l:resultSearch, 'Search results for: "' . l:query . '"')
+  call pmv#utils#rssenderPopup(l:resultSearch, 'Search results for: "' . l:query . '"')
 endfunction
 
 function! rubygems#clean_signs()
@@ -79,22 +79,22 @@ endfunction
 function! s:extract_gem_version(str)
   let l:str = split(a:str, ' ')
   if len(l:str) > 2 && s:is_gem_definition(l:str)
-    let gem_version = matchstr(l:str[-1], '[0-9.]\+')
-    return gem_version
+    let l:gem_version = matchstr(l:str[-1], '[0-9.]\+')
+    return l:gem_version
   else
     return
   endif
 endfunction
 
 function! s:extract_date(str)
-  let date = matchstr(a:str, '[0-9-]\+')
-  return date
+  let l:date = matchstr(a:str, '[0-9-]\+')
+  return l:date
 endfunction
 
 function! s:strip(input_str)
-  let output_str = substitute(a:input_str, '^\s*\(.\{-}\)\s*$', '\1', '')
-  let output_str = s:strip_last_new_line_char(output_str)
-  return output_str
+  let l:output_str = substitute(a:input_str, '^\s*\(.\{-}\)\s*$', '\1', '')
+  let l:output_str = s:strip_last_new_line_char(l:output_str)
+  return l:output_str
 endfunction
 
 function! s:strip_last_new_line_char(str)
@@ -147,14 +147,14 @@ endfunction
 function! s:update_cursor_position(index)
   call setpos('.', [bufname('%'), a:index, 0, 1])
   if &cursorline
-    let current_cursorline_bg = synIDattr(synIDtrans(hlID('CursorLine')), 'bg')
-    exe 'highlight CursorLine ctermbg=' . current_cursorline_bg
+    let l:current_cursorline_bg = synIDattr(synIDtrans(hlID('CursorLine')), 'bg')
+    exe 'highlight CursorLine ctermbg=' . l:current_cursorline_bg
   endif
 endfunction
 
 function! s:remove_current_version()
-  let line = getline('.')
-  let line = split(line, ',')[0]
-  let line = substitute(line, '^\s\+', '', 'g')
-  execute 'normal! ^C' . line
+  let l:line = getline('.')
+  let l:line = split(l:line, ',')[0]
+  let l:line = substitute(l:line, '^\s\+', '', 'g')
+  execute 'normal! ^C' . l:line
 endfunction
