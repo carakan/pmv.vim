@@ -1,7 +1,7 @@
 function! pmv#elixir#hexUtils#appendRelease(package, release)
   let regex = a:package . ',\?\s*}\?'
   let with_version = a:package . ', "\~> ' . a:release . '"'
-  let new_line = substitute(getline('.'), regex, with_version, "")
+  let new_line = substitute(getline('.'), regex, with_version, '')
   call s:check_after_release(new_line, a:release)
   normal! $
 endfunction
@@ -9,9 +9,9 @@ endfunction
 function! s:check_after_release(line, release)
   let after_version = matchstr(a:line, a:release . '"\zs.')
   if empty(after_version) || after_version == ']'
-    let line = substitute(a:line, a:release . '"', a:release . '"}', "")
+    let line = substitute(a:line, a:release . '"', a:release . '"}', '')
   else
-    let line = substitute(a:line, a:release . '"', a:release . '", ', "")
+    let line = substitute(a:line, a:release . '"', a:release . '", ', '')
   endif
   call setline('.', line)
 endfunction

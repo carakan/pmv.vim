@@ -1,3 +1,5 @@
+scriptencoding utf-8
+
 function! pmv#ruby#rubygems#allReleases(packageName) abort
   let l:gem_name = pmv#ruby#utils#getPackageName(a:packageName)
   if empty(l:gem_name)
