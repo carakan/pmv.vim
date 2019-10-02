@@ -17,7 +17,9 @@ endfunction
 
 func! pmv#utils#closePopup() abort
   if s:popup_window
-    call nvim_win_close(s:popup_window, 1)
+    if exists('*nvim_win_close')
+      call nvim_win_close(s:popup_window, 1)
+    endif
     let s:popup_window = 0
   endif
 endfunc
