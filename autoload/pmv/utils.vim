@@ -1,3 +1,5 @@
+let s:namespace_id = nvim_create_namespace('pmv-virtual-text')
+
 scriptencoding utf-8
 
 let s:popup_window = 0
@@ -6,7 +8,7 @@ function! pmv#utils#renderText(version, lnum) abort
   if exists('*nvim_buf_set_virtual_text')
     call nvim_buf_set_virtual_text(
                 \   0,
-                \   0,
+                \   s:namespace_id,
                 \   a:lnum - 1,
                 \   [['#', 'Comment'],
                 \    [' Last version: ' . a:version, 'NonText']],
@@ -21,6 +23,7 @@ func! pmv#utils#closePopup() abort
       call nvim_win_close(s:popup_window, 1)
     endif
     let s:popup_window = 0
+    nvim_buf_clear_namespace(0, s:namespace_id, 0, -1)
   endif
 endfunc
 
