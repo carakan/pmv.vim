@@ -23,7 +23,6 @@ func! pmv#utils#closePopup() abort
       call nvim_win_close(s:popup_window, 1)
     endif
     let s:popup_window = 0
-    nvim_buf_clear_namespace(0, s:namespace_id, 0, -1)
   endif
 endfunc
 
